@@ -1,0 +1,14 @@
+在本地初始化好git文件夹，如何将其上传至github中的repository。
+
+1、SSH建立与github的连接
+按照github教程在本地生成key，并在github账户setting中建立与本地生成key的连接。
+
+2、将本地git文件夹上传到github的repository中
+https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
+第七步时注意以下的话
+Note: GitHub for Windows users should use the command git remote set-url origin instead of git remote add origin here.
+
+初始化本地git文件夹
+进入文件夹(Windows)，输入：
+git remote set-url git@github.com:githubusername/repositoryname.git
+git push -u origin master

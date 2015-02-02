@@ -1,0 +1,7 @@
+session.setAttribute("name", object);
+attribute对应 java hashmap，右边的值必须是object。直接使用 setAttribute("name", 1);将int类型的1传进去不可以。需要将int转换成object，Integer。
+Integer NamingConventionSucks = new Integer(1); setAttribute("name", NamingConventionSucks);则可成功。
+接受时 Integer number = (Integer) session.getAttribute("name");
+------------------------------------------------------------------------------------
+response.sendRedirect 与 RequestDispatcher 区别。网上写的听清楚的。现在用的着的是，RequestDispatcher将原本request中的信息保存，传到下一个地方。且是在服务器端进行的操作。sendRedirect是浏览器自己重新去访问个啥，request不同原来的request。
+------------------------------------------------------------------------------------
