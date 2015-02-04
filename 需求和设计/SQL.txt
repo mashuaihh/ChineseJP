@@ -1,0 +1,41 @@
+中文表
+ch: {
+ch_id int,
+ch_text text,
+author varchar,
+publisher varchar,
+pub_date varchar
+}
+
+日文表
+jp: {
+jp_id int,
+jp_text text,
+author varchar,
+publisher varchar,
+pub_date
+}
+
+日文中文连接表
+ch_jp: {
+ch_id int,
+jp_id int
+}
+
+用户表
+users: {
+user_id int,
+name varchar,
+email varchar,
+password varchar,
+role varchar //只可为 admin 或 member
+}
+
+用户申请注册表
+apply_users: {
+user_id int,
+name varchar,
+email varchar,
+password varchar,
+note varchar
+}
