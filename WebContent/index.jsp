@@ -7,12 +7,12 @@
 <title>中日对译语料库首页</title>
 <%! final int LOGIN_YES = 1;
 	final int LOGIN_NO = 0;
-	Integer LoginYes = new Integer(1);
-	Integer LoginNo = new Integer(0);
+	Boolean LoginYes = true;
+	Boolean LoginNo = false;
 	%>
 </head>
 <body>
-	<%  Integer status = (Integer) session.getAttribute("login_status");
+	<%  Boolean status = (Boolean) session.getAttribute("login_status");
 		if (status == null || status.equals(LoginNo)) { %>
 			<h2>用户登陆</h2>
 			<form action="login2.do" method="post">

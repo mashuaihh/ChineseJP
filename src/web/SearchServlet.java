@@ -42,9 +42,9 @@ public class SearchServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		String language = request.getParameter("language");
 		HttpSession session = request.getSession();
-		Integer status = (Integer) session.getAttribute("login_status");
+		Boolean status = (Boolean) session.getAttribute("login_status");
 		if (status == null) 
-			status = new Integer(0);
+			status = false;
 		
 		SearchWord sw = new SearchWord(keyword, language, status);
 		request.setAttribute("chs", sw.getChs());

@@ -18,8 +18,8 @@ import db.Login;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	final int SUCCESS = 1;
-	final int FAILURE = 0;
+	final boolean SUCCESS = true;
+	final boolean FAILURE = false;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -48,15 +48,16 @@ public class LoginServlet extends HttpServlet {
 		Login login = new Login(username, psw);
 		
 		HttpSession session = request.getSession();
-		Integer status = null;
+		
+		Boolean status = new Boolean("false");
 		if (login.getLogin_result() == SUCCESS) {
-			status = new Integer(SUCCESS);
+			status = new Boolean("true");
 			session.setAttribute("login_status", status);
 			session.setAttribute("login_name", username);
 			response.sendRedirect("index.jsp");
 		}
 		else {
-			status = new Integer(FAILURE);
+			status = new Boolean("false");
 			session.setAttribute("login_status", status);
 			response.setHeader("Refresh", "3;URL=index.jsp");
 			response.sendRedirect("loginFailure.html");

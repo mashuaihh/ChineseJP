@@ -1,1 +1,1 @@
-jsp实验项目
+JSP project for Beijing Center for Japanese Studies

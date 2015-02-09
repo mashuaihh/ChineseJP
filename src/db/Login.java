@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Login {
-	final int SUCCESS = 1;
-	final int FAILURE = 0;
-	private int login_result;
+	private boolean login_result;
 	
 	static Connection conn;
 	static Statement st;
@@ -39,12 +37,12 @@ public class Login {
 		}
 		
 		if (this.username.equals(this.username_enter) && this.psw.equals(this.psw_enter))
-			this.login_result = SUCCESS;
+			this.login_result = new Boolean("true");
 		else
-			this.login_result = FAILURE;
+			this.login_result = new Boolean("false");
 	}
 	
-	public int getLogin_result() {
+	public boolean getLogin_result() {
 		return this.login_result;
 	}
 }

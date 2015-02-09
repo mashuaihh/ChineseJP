@@ -10,14 +10,14 @@ import java.util.ArrayList;
 public class SearchWord {
 	static Connection conn;
 	static Statement st;
-	final int loginYes = 1;
-	final int loginNo = 0;
-	final int allowedNumber = 10;
+	final boolean loginYes = true;
+	final boolean loginNo = false;
+	final int allowedNumber = 50;
 	
 	private ArrayList<String> chs = new ArrayList<String>();
 	private ArrayList<String> jps = new ArrayList<String>();
 	
-	public SearchWord(String keyword, String language, Integer status) {
+	public SearchWord(String keyword, String language, Boolean status) {
 		conn = new MyConnect().getConnection();
 		String subquery1 = "%" + keyword + "%";
 		String query = "SELECT ch, jp FROM duiyi WHERE " + language + " LIKE ?";

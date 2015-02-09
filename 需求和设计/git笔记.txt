@@ -10,5 +10,5 @@ Note: GitHub for Windows users should use the command git remote set-url origin 
 
 初始化本地git文件夹
 进入文件夹(Windows)，输入：
-git remote set-url git@github.com:githubusername/repositoryname.git
+git remote set-url origin git@github.com:githubusername/repositoryname.git
 git push -u origin master
