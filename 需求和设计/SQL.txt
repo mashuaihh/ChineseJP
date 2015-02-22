@@ -1,48 +1,56 @@
 中文表
 ch: {
-ch_id int,
-ch_text text,
-author varchar,
-publisher varchar,
-pub_date varchar
+ch_id INT PRIMARY KEY,
+ch_text TEXT,
+trans VARCHAR,
+author VARCHAR,
+publisher VARCHAR,
+pub_date VARCHAR
 }
 
 日文表
 jp: {
-jp_id int,
-jp_text text,
-author varchar,
-publisher varchar,
+jp_id INT PRIMARY KEY,
+jp_text TEXT,
+trans VARCHAR,
+author VARCHAR,
+publisher VARCHAR,
 pub_date
 }
 
 日文中文连接表
 ch_jp: {
-ch_id int,
-jp_id int
+user_id INT,
+ch_id INT CONSTRAINT chfk FOREIGN KEY (ch_id) REFERENCES ch(ch_id) ON DELETE SET NULL ON UPDATE CASCADE,
+jp_id INT CONSTRAINT jpfk FOREIGN KEY (jp_id) REFERENCES jp(jp_id) ON DELETE SET NULL ON UPDATE CASCADE,
 }
 
-用户词条连接表 
+
+/* 用户词条连接表 
 user_chjp: {
-user_id int,
-ch_id int,
-jp_id int
+user_id INT,
+ch_id INT,
+jp_id INT
 }//指明表明每个用户上传了哪些词条，若只上传ch，则jp_id为null，反之成立。
+*/
+
 
 用户表
 users: {
-user_id int,
-name varchar,
-email varchar,
-password varchar,
-role varchar //只可为 admin 或 member
+user_id INT,
+name VARCHAR,
+email VARCHAR,
+password VARCHAR,
+role VARCHAR //只可为 admin 或 member
 }
 
 用户申请注册表
 apply_users: {
-user_id int,
-name varchar,
-email varchar,
-password varchar,
-note varchar
+user_id INT,
+name VARCHAR,
+email VARCHAR,
+password VARCHAR,
+note VARCHAR
 }
+
+TRANSACTION 想一下什么过程是

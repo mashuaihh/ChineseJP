@@ -8,8 +8,8 @@ import java.sql.Statement;
 public class Login {
 	private boolean login_result;
 	
-	static Connection conn;
-	static Statement st;
+	private Connection conn;
+	private Statement st;
 	
 	private String username;
 	private String psw;

@@ -47,7 +47,7 @@
 	<%  ArrayList<String> chs = (ArrayList<String>) request.getAttribute("chs");
 		ArrayList<String> jps = (ArrayList<String>) request.getAttribute("jps");
 		if (chs == null && jps == null) { %>
-			<h2>暂时啥也没有</h2>
+			<h2>未登录</h2>
 	<%	}
 		else { 
 			for (int i = 0; i < chs.size(); i++) { %>
