@@ -5,3 +5,4 @@ Integer NamingConventionSucks = new Integer(1); setAttribute("name", NamingConve
 ------------------------------------------------------------------------------------
 response.sendRedirect 与 RequestDispatcher 区别。网上写的听清楚的。现在用的着的是，RequestDispatcher将原本request中的信息保存，传到下一个地方。且是在服务器端进行的操作。sendRedirect是浏览器自己重新去访问个啥，request不同原来的request。
 ------------------------------------------------------------------------------------
+java scanner 直接读取utf-8文件，hasNextLine 会返回false。

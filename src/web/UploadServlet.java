@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import db.Upload;
 
@@ -54,7 +55,10 @@ public class UploadServlet extends HttpServlet {
 		
 //		Upload upload = new Upload(ch_text, ch_author, ch_trans, ch_publisher, ch_update, 
 //				jp_text, jp_author, jp_trans, jp_publisher, jp_update);
-		Upload upload = new Upload(chs, jps);
+		HttpSession session = request.getSession();
+		String user_id = (String) session.getAttribute("user_id");
+
+		Upload upload = new Upload(chs, jps, user_id);
 	}
 
 }

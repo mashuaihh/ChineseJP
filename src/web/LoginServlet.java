@@ -46,6 +46,7 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String psw = request.getParameter("password");
 		Login login = new Login(username, psw);
+		String user_id = login.getUserid();
 		
 		HttpSession session = request.getSession();
 		
@@ -54,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 			status = new Boolean("true");
 			session.setAttribute("login_status", status);
 			session.setAttribute("login_name", username);
+			session.setAttribute("user_id", user_id);
 			response.sendRedirect("index.jsp");
 		}
 		else {

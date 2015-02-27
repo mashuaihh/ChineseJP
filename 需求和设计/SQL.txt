@@ -20,19 +20,10 @@ pub_date
 
 日文中文连接表
 ch_jp: {
-user_id INT,
-ch_id INT CONSTRAINT chfk FOREIGN KEY (ch_id) REFERENCES ch(ch_id) ON DELETE SET NULL ON UPDATE CASCADE,
-jp_id INT CONSTRAINT jpfk FOREIGN KEY (jp_id) REFERENCES jp(jp_id) ON DELETE SET NULL ON UPDATE CASCADE,
+user_num INT,
+ch_num INT CONSTRAINT chfk FOREIGN KEY (ch_id) REFERENCES ch(ch_id) ON DELETE SET NULL ON UPDATE CASCADE,
+jp_num INT CONSTRAINT jpfk FOREIGN KEY (jp_id) REFERENCES jp(jp_id) ON DELETE SET NULL ON UPDATE CASCADE,
 }
-
-
-/* 用户词条连接表 
-user_chjp: {
-user_id INT,
-ch_id INT,
-jp_id INT
-}//指明表明每个用户上传了哪些词条，若只上传ch，则jp_id为null，反之成立。
-*/
 
 
 用户表
@@ -53,4 +44,7 @@ password VARCHAR,
 note VARCHAR
 }
 
+
 TRANSACTION 想一下什么过程是
+
+日文中文链接表，使用 ch_num, jp_num 作为复合主键。不能有null。暂时解决办法，不允许用户删除记录。

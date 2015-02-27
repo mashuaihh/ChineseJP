@@ -1,16 +1,21 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Upload {
 	private Connection conn;
 	private Statement st;
+	private int ch_id = 1;
+	private int jp_id = 1;
+	private int user_id = -1;
 	
-	public Upload(String[] chs, String[] jps) {
+	public Upload(String[] chs, String[] jps, String user_id) {
 // jps = {jp_text 0 , jp_author 1, jp_trans 2, jp_publisher 3, jp_pubdate 4}
 // chs = same as jps
+		this.user_id = Integer.parseInt(user_id);
 		conn = new NewConnect().getConnection();
 		if (jps[0].equals("") && chs[0].equals(""))
 			chjpInsert(chs, jps);
@@ -31,8 +36,44 @@ public class Upload {
 					jps[3] + "','" +
 					jps[4] + "')";
 			st.executeUpdate(jpSQL);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			st = (Statement) conn.createStatement();
+			String query = "SELECT jp_id FROM jp WHERE jp_text = " +
+						"'" + jps[0] + "'";
+			ResultSet rs = st.executeQuery(query);
+			while (rs.next()) {
+				String jp_num = rs.getString(1);
+				this.jp_id = Integer.parseInt(jp_num);
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			st = (Statement) conn.createStatement();
+			String jp_insert = "INSERT INTO user_ch_jp " +
+							"VALUES (" + this.user_id +
+							"," + this.ch_id +
+							"," + this.jp_id + ")";
+			st.executeUpdate(jp_insert);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
 			conn.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

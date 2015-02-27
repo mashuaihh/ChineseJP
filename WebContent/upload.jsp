@@ -5,9 +5,39 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<%! final int LOGIN_YES = 1;
+	final int LOGIN_NO = 0;
+	Boolean LoginYes = true;
+	Boolean LoginNo = false;
+	%>
 </head>
 <body>
+	<%  Boolean status = (Boolean) session.getAttribute("login_status");
+		if (status == null || status.equals(LoginNo)) { %>
+			<h2>用户登陆</h2>
+			<form action="login2.do" method="post">
+				<label for="username">用户名:</label>
+				<input type="text" name="username" id="username"/>
+				<br><br>
+				<label for="password">密码:</label>
+				<input type="password" name="password" id="password"/>
+				<br>
+				<input type="submit" name="submit" value="登陆" />
+			</form>
+	<%	} 
+		else if (status.equals(LoginYes)){ 
+			String username = (String) session.getAttribute("login_name"); 
+			String user_id = (String) session.getAttribute("user_id"); %>
+			<h1>Welcome <%= username %></h1>
+			<h1>You have successfully logined in!</h1>
+			<br>
+			<h1>Your user ID is <%= user_id %></h1>
+			<form action="login2.do" method="get">
+				<input type="submit" name="submit" value="退出登陆" />
+			</form>
+
+	<%} %>
+
 	<form action="upload.do" method="post">
 		
 	<div id="jp_input">

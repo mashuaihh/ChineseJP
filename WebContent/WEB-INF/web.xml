@@ -16,7 +16,6 @@
     <servlet-name>login</servlet-name>
     <url-pattern>/login.do</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <servlet-name>logout</servlet-name>
     <servlet-class>web.LogoutDirect</servlet-class>
@@ -41,7 +40,6 @@
     <servlet-name>searchword</servlet-name>
     <url-pattern>/searchWord.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>upload</servlet-name>
     <servlet-class>web.UploadServlet</servlet-class>
@@ -49,5 +47,13 @@
   <servlet-mapping>
     <servlet-name>upload</servlet-name>
     <url-pattern>/upload.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>UploadPage</servlet-name>
+    <servlet-class>web.UploadPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadPage</servlet-name>
+    <url-pattern>/UploadPage.do</url-pattern>
   </servlet-mapping>
 </web-app>

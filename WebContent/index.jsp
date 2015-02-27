@@ -26,12 +26,19 @@
 			</form>
 	<%	} 
 		else if (status.equals(LoginYes)){ 
-			String username = (String) session.getAttribute("login_name"); %>
+			String username = (String) session.getAttribute("login_name"); 
+			String user_id = (String) session.getAttribute("user_id"); %>
 			<h1>Welcome <%= username %></h1>
 			<h1>You have successfully logined in!</h1>
+			<br>
+			<h1>Your user ID is <%= user_id %></h1>
 			<form action="login2.do" method="get">
 				<input type="submit" name="submit" value="退出登陆" />
 			</form>
+			<form action="UploadPage.do" method="get">
+				<input type="submit" name="submit" value="上传文本" />
+			</form>
+
 	<%} %>
 		<br>
 		<br>
