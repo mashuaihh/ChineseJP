@@ -17,12 +17,12 @@ public class Upload {
 // chs = same as jps
 		this.user_id = Integer.parseInt(user_id);
 		conn = new NewConnect().getConnection();
-		if (!jps[0].equals("") && !chs[0].equals(""))
-			chjpInsert(chs, jps);
+		if (jps[0].equals("") && chs[0].equals(""))
+			jpInsert(jps);
 		else if (jps[0].equals(""))
 			chInsert(chs);
 		else 
-			jpInsert(jps);
+			chjpInsert(chs, jps);
 	}
 	
 	private void jpInsert(String[] jps) {
@@ -96,67 +96,13 @@ public class Upload {
 	}
 	
 	private void chjpInsert(String[] chs, String[] jps) {
-		try { // insert new ch text
-			st = (Statement) conn.createStatement();
-			String chSQL = "INSERT INTO ch(ch_text, author, publisher, pub_date, trans) " + 
-			"VALUES ('" + 
-					chs[0] + "','" +
-					chs[1] + "','" +
-					chs[2] + "','" +
-					chs[3] + "','" +
-					chs[4] + "')";
-			st.executeUpdate(chSQL);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		ChInsertNew(chs);
+		ChIdNew(chs);
 		
-		try { // find the new insert ch text's id
-			st = (Statement) conn.createStatement();
-			String query = "SELECT ch_id FROM ch WHERE ch_text = " +
-						"'" + chs[0] + "'";
-			ResultSet rs = st.executeQuery(query);
-			while (rs.next()) {
-				String ch_num = rs.getString(1);
-				this.ch_id = Integer.parseInt(ch_num);
-			}
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		JpInsertNew(jps);
+		JpIdNew(jps);
 		
-		try { // insert new jp text
-			st = (Statement) conn.createStatement();
-			String jpSQL = "INSERT INTO jp(jp_text, author, trans, publisher, pub_date) " + 
-			"VALUES ('" + 
-					jps[0] + "','" +
-					jps[1] + "','" +
-					jps[2] + "','" +
-					jps[3] + "','" +
-					jps[4] + "')";
-			st.executeUpdate(jpSQL);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		try { // find the new insert jp text's id
-			st = (Statement) conn.createStatement();
-			String query = "SELECT jp_id FROM jp WHERE jp_text = " +
-						"'" + jps[0] + "'";
-			ResultSet rs = st.executeQuery(query);
-			while (rs.next()) {
-				String jp_num = rs.getString(1);
-				this.jp_id = Integer.parseInt(jp_num);
-			}
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ChJpRelateInsert();
 		
 		try {
 			conn.close();
