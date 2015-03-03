@@ -59,6 +59,8 @@ public class UploadServlet extends HttpServlet {
 		String user_id = (String) session.getAttribute("user_id");
 
 		Upload upload = new Upload(chs, jps, user_id);
+		
+		response.sendRedirect("upload.jsp");
 	}
 
 }
