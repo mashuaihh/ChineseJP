@@ -49,11 +49,19 @@
     <url-pattern>/upload.do</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>UploadPage</servlet-name>
-    <servlet-class>web.UploadPageServlet</servlet-class>
+    <servlet-name>uploadInfo</servlet-name>
+    <servlet-class>web.UpdateInfoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>UploadPage</servlet-name>
-    <url-pattern>/UploadPage.do</url-pattern>
+    <servlet-name>uploadInfo</servlet-name>
+    <url-pattern>/UpdateInfo.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  <servlet-name>updateWord</servlet-name>
+    <servlet-class>web.UpdateWordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateWord</servlet-name>
+    <url-pattern>/UpdateWord.do</url-pattern>
   </servlet-mapping>
 </web-app>

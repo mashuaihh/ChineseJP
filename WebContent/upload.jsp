@@ -3,18 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%@ include file="PathSnippet" %>
+<%@ include file="LoginSnippet" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<%! final int LOGIN_YES = 1;
-	final int LOGIN_NO = 0;
-	Boolean LoginYes = true;
-	Boolean LoginNo = false;
-	%>
+<title>用户上传页</title>
 </head>
 <body>
 	<%  Boolean status = (Boolean) session.getAttribute("login_status");
-		if (status == null || status.equals(LoginNo)) { %>
-			<h2>用户登陆</h2>
+		if (status == null || status.equals(LoginNo)) { %> 
+			<h2>只有登录用户可以上传条目，请返回首页登录</h2>
+			<a href="<%=IndexPath%>" style="text-decoration: none">返回首页</a>
+		<!-- 	<h2>用户登陆</h2>
 			<form action="login2.do" method="post">
 				<label for="username">用户名:</label>
 				<input type="text" name="username" id="username"/>
@@ -24,6 +23,7 @@
 				<br>
 				<input type="submit" name="submit" value="登陆" />
 			</form>
+			-->
 	<%	} 
 		else if (status.equals(LoginYes)){ 
 			String username = (String) session.getAttribute("login_name"); 
@@ -35,8 +35,6 @@
 			<form action="login2.do" method="get">
 				<input type="submit" name="submit" value="退出登陆" />
 			</form>
-
-	<%} %>
 
 	<form action="upload.do" method="post">
 		
@@ -79,6 +77,9 @@
 	</select>
 	<input type="submit" name="submit" id="submit" value="justify" />
 	</form>
+	
+	<%} %> <!-- else if (status.equals(LoingYes)) -->
+	
 </body>
 
 <!--  To disable the input area

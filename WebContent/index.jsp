@@ -5,14 +5,10 @@
 <head>
 
 <%@ include file="PathSnippet" %>
+<%@ include file="LoginSnippet" %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>中日对译语料库首页</title>
-<%! final int LOGIN_YES = 1;
-	final int LOGIN_NO = 0;
-	Boolean LoginYes = true;
-	Boolean LoginNo = false;
-	%>
 </head>
 <body>
 	<%  Boolean status = (Boolean) session.getAttribute("login_status");
@@ -38,10 +34,9 @@
 			<form action="login2.do" method="get">
 				<input type="submit" name="submit" value="退出登陆" />
 			</form>
-<!--		<form action="UploadPage.do" method="get">
-				<input type="submit" name="submit" value="上传文本" />
-			</form> -->
-			<a href="<%=uploadPath%>" style="text-decoration: none">上传文本</a>
+			<a href="<%=uploadPath%>" style="text-decoration: none">上传文本</a> 
+			<br>
+			<a href="member_center.jsp" style="text-decoration: none">用户中心</a>
 
 	<%} %>
 		<br>

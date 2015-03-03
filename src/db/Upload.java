@@ -26,50 +26,9 @@ public class Upload {
 	}
 	
 	private void jpInsert(String[] jps) {
-		try { //insert new jp text
-			st = (Statement) conn.createStatement();
-			String jpSQL = "INSERT INTO jp(jp_text, author, publisher, pub_date, trans) " + 
-			"VALUES ('" + 
-					jps[0] + "','" +
-					jps[1] + "','" +
-					jps[2] + "','" +
-					jps[3] + "','" +
-					jps[4] + "')";
-			st.executeUpdate(jpSQL);
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		try { // find the new insert jp text's id
-			st = (Statement) conn.createStatement();
-			String query = "SELECT jp_id FROM jp WHERE jp_text = " +
-						"'" + jps[0] + "'";
-			ResultSet rs = st.executeQuery(query);
-			while (rs.next()) {
-				String jp_num = rs.getString(1);
-				this.jp_id = Integer.parseInt(jp_num);
-			}
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			st = (Statement) conn.createStatement();
-			String jp_insert = "INSERT INTO user_ch_jp " +
-							"VALUES (" + this.user_id +
-							"," + this.ch_id +
-							"," + this.jp_id + ")";
-			st.executeUpdate(jp_insert);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		JpInsertNew(jps);
+		JpIdNew(jps);
+		ChJpRelateInsert();
 		try {
 			conn.close();
 		} catch (SQLException e) {
@@ -79,20 +38,12 @@ public class Upload {
 	}
 	
 	private void chInsert(String[] chs) {
+		ChInsertNew(chs);
 		try {
-			st = (Statement) conn.createStatement();
-			String chSQL = "INSERT INTO ch(ch_text, author, publisher, pub_date, trans) " + 
-			"VALUES ('" + 
-					chs[0] + "','" +
-					chs[1] + "','" +
-					chs[2] + "','" +
-					chs[3] + "','" +
-					chs[4] + "')";
-			st.executeUpdate(chSQL);
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}	
 	}
 	
 	private void chjpInsert(String[] chs, String[] jps) {
