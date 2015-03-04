@@ -4,7 +4,8 @@ ch_id INT PRIMARY KEY,
 ch_text TEXT,
 author VARCHAR,
 publisher VARCHAR,
-pub_date VARCHAR
+pub_date VARCHAR,
+user_num_ch INT FOREIGN KEY (user_jp_num) REFERENCES users(user_id)
 }
 
 日文原文表
@@ -14,6 +15,7 @@ jp_text TEXT,
 author VARCHAR,
 publisher VARCHAR,
 pub_date VARCHAR,
+user_num_jp INT FOREIGN KEY (user_jp_num) REFERENCES users(user_id)
 }
 
 中译本表 //存日文对应的中文译文

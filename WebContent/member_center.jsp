@@ -31,10 +31,7 @@
 			String username = (String) session.getAttribute("login_name"); 
 			String user_id = (String) session.getAttribute("user_id"); 
 			MemberWord mw = new MemberWord(user_id);
-			ArrayList<Integer> chIdList = mw.getChList();
-			ArrayList<Integer> jpIdList = mw.getJpList();
-			ArrayList<String> chTextList = mw.getChTextList();
-			ArrayList<String> jpTextList = mw.getJpTextList();
+			
 			%>
 			
 			<h1>Welcome <%= username %></h1>
@@ -44,8 +41,8 @@
 				<input type="submit" name="submit" value="退出登陆" />
 			</form>
 			
-			<% if (chTextList != null && jpTextList != null) { 
-				 for (int i = 0; i < chTextList.size(); i++) { %>
+	<!-- 		<% //if (chTextList != null && jpTextList != null) { 
+				 //for (int i = 0; i < chTextList.size(); i++) { %>
 
 				 	<h2>Chinese id:<%= chIdList.get(i) %></h2>
 					<h2><%= chTextList.get(i) %></h2>
@@ -71,8 +68,8 @@
 			<% } 
 			} else { %>
 				<h1>No available items now</h1>
-			<%}
+			<% }
 			
-     } %>
+     }%> -->
 </body>
 </html>

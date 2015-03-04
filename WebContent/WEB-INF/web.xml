@@ -64,4 +64,13 @@
     <servlet-name>updateWord</servlet-name>
     <url-pattern>/UpdateWord.do</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>addTextMem</servlet-name>
+    <servlet-class>web.AddTextMemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addTextMem</servlet-name>
+    <url-pattern>/AddTextMem.do</url-pattern>
+  </servlet-mapping>
 </web-app>
