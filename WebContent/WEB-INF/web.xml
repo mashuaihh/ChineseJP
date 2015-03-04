@@ -57,7 +57,7 @@
     <url-pattern>/UpdateInfo.do</url-pattern>
   </servlet-mapping>
   <servlet>
-  <servlet-name>updateWord</servlet-name>
+    <servlet-name>updateWord</servlet-name>
     <servlet-class>web.UpdateWordServlet</servlet-class>
   </servlet>
   <servlet-mapping>

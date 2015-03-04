@@ -53,7 +53,7 @@
 				 		<input type="hidden" name="ch_id" value="<%=chIdList.get(i)%>" />
 				 		<input type="submit" value="修改" />
 				 	</form>
-				 	<form action="Delete.do" method="get">
+				 	<form action="Delete.do" method="post">
 				 		<input type="hidden" name="ch_id" value="<%=chIdList.get(i)%>" />
 				 		<input type="submit" value="删除" />
 				 	</form>
@@ -63,7 +63,7 @@
 				 		<input type="hidden" name="jp_id" value="<%=jpIdList.get(i)%>" />
 				 		<input type="submit" value="修改" />
 				 	</form>
-				 	<form action="Delete.do" method="get">
+				 	<form action="Delete.do" method="post">
 				 		<input type="hidden" name="jp_id" value="<%=jpIdList.get(i)%>" />
 				 		<input type="submit" value="删除" />
 				 	</form>
