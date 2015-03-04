@@ -1,30 +1,40 @@
-中文表
-ch: {
+中文原文表
+ch_ori : {
 ch_id INT PRIMARY KEY,
 ch_text TEXT,
-trans VARCHAR,
 author VARCHAR,
 publisher VARCHAR,
 pub_date VARCHAR
 }
 
-日文表
-jp: {
+日文原文表
+jp_ori : {
 jp_id INT PRIMARY KEY,
 jp_text TEXT,
-trans VARCHAR,
 author VARCHAR,
 publisher VARCHAR,
-pub_date
+pub_date VARCHAR,
 }
 
-日文中文连接表
-ch_jp: {
-user_num INT,
-ch_num INT CONSTRAINT chfk FOREIGN KEY (ch_id) REFERENCES ch(ch_id) ON DELETE SET NULL ON UPDATE CASCADE,
-jp_num INT CONSTRAINT jpfk FOREIGN KEY (jp_id) REFERENCES jp(jp_id) ON DELETE SET NULL ON UPDATE CASCADE,
+中译本表 //存日文对应的中文译文
+ch_trans : {
+CT_id INT PRIMARY KEY,
+CT_text TEXT,
+CT_translator VARCHAR,
+CT_publisher VARCHAR,
+CT_pub_date VARCHAR,
+jp_num INT CONSTRAINT ch_tran_fk FOREIGN KEY (jp_num) REFERENCES jp_ori(jp_id) ON DELETE NO ACTION ON UPDATE CASCADE
 }
 
+日译本表 //存中文对应的日文译文
+jp_trans : {
+JT_id INT PRIMARY KEY,
+JT_text TEXT,
+JT_translator VARCHAR,
+JT_publisher VARCHAR,
+JT_pub_date VARCHAR,
+ch_num INT CONSTRAINT jp_tran_fk FOREIGN KEY (ch_num) REFERENCES ch_ori(ch_id) ON DELETE NO ACTION ON UPDATE CASCADE
+}
 
 用户表
 users: {
@@ -46,5 +56,7 @@ note VARCHAR
 
 
 TRANSACTION 想一下什么过程是
+
+密码存为salt ，不明文存
 
 日文中文链接表，使用 ch_num, jp_num 作为复合主键。不能有null。暂时解决办法，不允许用户删除记录。
