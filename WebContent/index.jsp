@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
+    pageEncoding="UTF-8" import="java.util.*, tool.*, db.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -50,19 +50,39 @@
 			<input type="submit" name="submit" value="搜索" />
 		</form>
 	
-	<%  ArrayList<String> chs = (ArrayList<String>) request.getAttribute("chs");
-		ArrayList<String> jps = (ArrayList<String>) request.getAttribute("jps");
-		if (chs == null && jps == null) { %>
-			<h2>未登录</h2>
-	<%	}
-		else { 
-			for (int i = 0; i < chs.size(); i++) { %>
+	<%  
+		SelectRegex sr = (SelectRegex) request.getAttribute("sr");
+		if (sr == null) {
+			
+		} else {
+		ArrayList<SelectJpOriContent>  jpOriList = sr.getJpOriList();
+		ArrayList<SelectChOriContent>  chOriList = sr.getChOriList();
+			if (jpOriList == null && chOriList == null) { %>
+				<h1>sha mei you</h1>
+		<% 	} else { %>
+				<h3>jpOriList <%=jpOriList.size() %></h3>
+		<%  	for (int i = 0; i < jpOriList.size(); i++) { 
+				SelectJpOriContent jp_each = jpOriList.get(i);
+				System.out.println("jp ori :" + jpOriList.size());
+			%>
 				
-				<h3><%= i+1 %><%= chs.get(i) %></h3>
-				<h3><%= jps.get(i) %></h3>
+				<h3><%= jp_each.getJp_text() %></h3>
+				<h3><%= jp_each.getCt_text() %></h3>
 				<br>
-	<% 			}
-		} %>
+	<% 		} %>
+		
+				<h1>From here on is Ch Ori Content</h1> <br>
+				<h3>chOriList <%=chOriList.size() %></h3>
+		<%	
+			for (int i = 0; i < chOriList.size(); i++) {
+				SelectChOriContent ch_each = chOriList.get(i); %>
+				<h2><%= chOriList == null %></h2>
+				<h2><%= ch_each.getJt_text()%></h2>
+				<h2><%= ch_each.getCh_text() %></h2>
+	<% 	}	 
+		}
+	}
+		%>
 	
 
 </body>

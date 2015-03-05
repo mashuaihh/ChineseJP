@@ -34,7 +34,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>searchword</servlet-name>
-    <servlet-class>web.SearchServlet</servlet-class>
+    <servlet-class>web.SelectRegexServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>searchword</servlet-name>
@@ -64,8 +64,7 @@
     <servlet-name>updateWord</servlet-name>
     <url-pattern>/UpdateWord.do</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <servlet-name>addTextMem</servlet-name>
     <servlet-class>web.AddTextMemServlet</servlet-class>
   </servlet>

@@ -9,3 +9,11 @@ java scanner 直接读取utf-8文件，hasNextLine 会返回false。
 -------------------------------------------------
 jdbc insert 数据时，如果int 则直接 .. + int_variable + ")" 即可。
 如果插入varchar一类字符，则 + "'" + char_variable + "')"。
+-----------------------------------------------------------
+debugger
+F5 	Executes the currently selected line and goes to the next line in your program. If the selected line is a method call the debugger steps into the associated code.
+F6 	F6 steps over the call, i.e. it executes a method without stepping into it in the debugger.
+F7 	F7 steps out to the caller of the currently executed method. This finishes the execution of the current method and returns to the caller of this method.
+F8 	F8 tells the Eclipse debugger to resume the execution of the program code until is reaches the next breakpoint or watchpoint. 
+In debugging servlet, String xx = request.getParameter("dd");
+use F8 (dont use F5 F6) to execute to the next line, to see the variable. Or will encounter compile problem (which I dont know why)
