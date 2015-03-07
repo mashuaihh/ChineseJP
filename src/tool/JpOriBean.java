@@ -1,6 +1,6 @@
 package tool;
 
-public class SelectJpOriContent {
+public class JpOriBean {
 	private String jp_id;
 	private String jp_text;
 	private String jp_author;
@@ -14,7 +14,11 @@ public class SelectJpOriContent {
 	private String ct_pub_date;
 	private String ct_jp_num;
 	
-	public SelectJpOriContent(String jp_id,
+	public JpOriBean() {
+		
+	}
+	
+	public JpOriBean(String jp_id,
 							String jp_text,
 							String jp_author,
 							String jp_publisher,
@@ -36,6 +40,50 @@ public class SelectJpOriContent {
 		this.ct_publisher = ct_publisher;
 		this.ct_pub_date = ct_pub_date;
 		this.ct_jp_num = ct_jp_num;
+	}
+	
+	public void setJp_id(String str) {
+		this.jp_id = str;
+	}
+
+	public void setJp_text(String str) {
+		this.jp_text = str;
+	}
+
+	public void setJp_author(String str) {
+		this.jp_author = str;
+	}
+
+	public void setJp_publisher(String str) {
+		this.jp_publisher = str;
+	}
+
+	public void setJp_pub_date(String str) {
+		this.jp_pub_date = str;
+	}
+
+	public void setCt_id(String str) {
+		this.ct_id = str;
+	}
+
+	public void setCt_text(String str) {
+		this.ct_text = str;
+	}
+
+	public void setCt_translator(String str) {
+		this.ct_translator = str;
+	}
+
+	public void setCt_publisher(String str) {
+		this.ct_publisher = str;
+	}
+
+	public void setCt_pub_date(String str) {
+		this.ct_pub_date = str;
+	}
+
+	public void setCt_jp_num(String str) {
+		this.ct_jp_num = str;
 	}
 	
 	public String getJp_id() {

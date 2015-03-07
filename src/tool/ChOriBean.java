@@ -1,6 +1,6 @@
 package tool;
 
-public class SelectChOriContent {
+public class ChOriBean {
 	private String ch_id;
 	private String ch_text;
 	private String ch_author;
@@ -14,7 +14,11 @@ public class SelectChOriContent {
 	private String jt_pub_date;
 	private String jt_ch_num;
 	
-	public SelectChOriContent(String ch_id,
+	public ChOriBean() {
+		
+	}
+	
+	public ChOriBean(String ch_id,
 							String ch_text,
 							String ch_author,
 							String ch_publisher,
@@ -36,6 +40,50 @@ public class SelectChOriContent {
 		this.jt_publisher = jt_publisher;
 		this.jt_pub_date = jt_pub_date;
 		this.jt_ch_num = jt_ch_num;
+	}
+	
+	public void setCh_id(String str) {
+		this.ch_id = str;
+	}
+
+	public void setCh_text(String str) {
+		this.ch_text = str;
+	}
+
+	public void setCh_author(String str) {
+		this.ch_author = str;
+	}
+
+	public void setCh_publisher(String str) {
+		this.ch_publisher = str;
+	}
+
+	public void setCh_pub_date(String str) {
+		this.ch_pub_date = str;
+	}
+
+	public void setJt_id(String str) {
+		this.jt_id = str;
+	}
+
+	public void setJt_text(String str) {
+		this.jt_text = str;
+	}
+
+	public void setJt_translator(String str) {
+		this.jt_translator = str;
+	}
+
+	public void setJt_publisher(String str) {
+		this.jt_publisher = str;
+	}
+
+	public void setJt_pub_date(String str) {
+		this.jt_pub_date = str;
+	}
+
+	public void setJt_ch_num(String str) {
+		this.jt_ch_num = str;
 	}
 	
 	public String getCh_id() {

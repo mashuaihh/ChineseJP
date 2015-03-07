@@ -50,9 +50,9 @@ public class SelectRegexServlet extends HttpServlet {
 		
 		SelectRegex sr = new SelectRegex(keyword, language, status);
 		
-//		request.setAttribute("jp_ori", sr.getJpOriList());
-//		request.setAttribute("ch_ori", sr.getChOriList());
-		request.setAttribute("sr", sr);
+		
+		request.setAttribute("jp_ori", sr.getJpOriList());
+		request.setAttribute("ch_ori", sr.getChOriList());
 		
 		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 		view.forward(request, response);

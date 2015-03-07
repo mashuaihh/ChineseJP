@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, tool.*, db.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -50,37 +51,20 @@
 			<input type="submit" name="submit" value="搜索" />
 		</form>
 	
-	<%  
-		SelectRegex sr = (SelectRegex) request.getAttribute("sr");
-		if (sr == null) {
-			
-		} else {
-		ArrayList<SelectJpOriContent>  jpOriList = sr.getJpOriList();
-		ArrayList<SelectChOriContent>  chOriList = sr.getChOriList();
-			if (jpOriList == null && chOriList == null) { %>
-				<h1>sha mei you</h1>
-		<% 	} else { %>
-				<h3>jpOriList <%=jpOriList.size() %></h3>
-		<%  	for (int i = 0; i < jpOriList.size(); i++) { 
-				SelectJpOriContent jp_each = jpOriList.get(i);
-			%>
-				
-				<h3><%= jp_each.getJp_text() %></h3>
-				<h3><%= jp_each.getCt_text() %></h3>
-				<br>
-	<% 		} %>
-		
-				<h1>From here on is Ch Ori Content</h1> <br>
-				<h3>chOriList <%=chOriList.size() %></h3>
-		<%	
-			for (int i = 0; i < chOriList.size(); i++) {
-				SelectChOriContent ch_each = chOriList.get(i); %>
-				<h2><%= ch_each.getJt_text()%></h2>
-				<h2><%= ch_each.getCh_text() %></h2>
-	<% 	}	 
-		}
-	}
-		%>
+	<c:forEach var="jp_each" items="${jp_ori}">
+		<h2>${jp_each.jp_text }</h2>
+		<h2>${jp_each.ct_text }</h2>
+		<br>
+	</c:forEach>
+	
+	<h1>Here comes the ch_ori</h1>
+	
+	<c:forEach var="ch_each" items="${ch_ori}">
+		<h2>${ch_each.ch_text }</h2>
+		<h2>${ch_each.jt_text }</h2>
+		<br>
+	</c:forEach>
+	
 	
 
 </body>

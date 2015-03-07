@@ -6,16 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import tool.SelectChOriContent;
-import tool.SelectJpOriContent;
+import tool.ChOriBean;
+import tool.JpOriBean;
 
 public class SelectRegex {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private String language = null;
 	private String[] keywords = null;
-	private ArrayList<SelectJpOriContent>  jpOriList = new ArrayList<SelectJpOriContent>();
-	private ArrayList<SelectChOriContent>  chOriList = new ArrayList<SelectChOriContent>();
+	private ArrayList<JpOriBean>  jpOriList = new ArrayList<JpOriBean>();
+	private ArrayList<ChOriBean>  chOriList = new ArrayList<ChOriBean>();
 	
 	public SelectRegex(String keyword, String language, boolean status) {
 		conn = new NewConnect().getConnection();
@@ -33,11 +33,11 @@ public class SelectRegex {
 		}
 	}
 	
-	public ArrayList<SelectJpOriContent> getJpOriList() {
+	public ArrayList<JpOriBean> getJpOriList() {
 		return this.jpOriList;
 	}
 	
-	public ArrayList<SelectChOriContent> getChOriList() {
+	public ArrayList<ChOriBean> getChOriList() {
 		return this.chOriList;
 	}
 	
@@ -104,7 +104,7 @@ public class SelectRegex {
 				String ct_publisher = rs.getString("ct_publisher");
 				String ct_pub_date = rs.getString("ct_pub_date");
 				String ct_jp_num = rs.getString("jp_num");
-				SelectJpOriContent jpOriContent = new SelectJpOriContent(jp_id,
+				JpOriBean jpOriContent = new JpOriBean(jp_id,
 						jp_text,
 						jp_author,
 						jp_publisher,
@@ -158,7 +158,7 @@ public class SelectRegex {
 				String jt_publisher = rs.getString("jt_publisher");
 				String jt_pub_date = rs.getString("jt_pub_date");
 				String jt_ch_num = rs.getString("ch_num");
-				SelectChOriContent chOriContent = new SelectChOriContent(ch_id,
+				ChOriBean chOriContent = new ChOriBean(ch_id,
 						ch_text,
 						ch_author,
 						ch_publisher,
