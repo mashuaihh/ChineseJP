@@ -63,7 +63,6 @@
 				<h3>jpOriList <%=jpOriList.size() %></h3>
 		<%  	for (int i = 0; i < jpOriList.size(); i++) { 
 				SelectJpOriContent jp_each = jpOriList.get(i);
-				System.out.println("jp ori :" + jpOriList.size());
 			%>
 				
 				<h3><%= jp_each.getJp_text() %></h3>
@@ -76,7 +75,6 @@
 		<%	
 			for (int i = 0; i < chOriList.size(); i++) {
 				SelectChOriContent ch_each = chOriList.get(i); %>
-				<h2><%= chOriList == null %></h2>
 				<h2><%= ch_each.getJt_text()%></h2>
 				<h2><%= ch_each.getCh_text() %></h2>
 	<% 	}	 

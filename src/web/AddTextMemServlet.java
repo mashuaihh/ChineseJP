@@ -60,6 +60,8 @@ public class AddTextMemServlet extends HttpServlet {
 		AddTextContent chContent = new AddTextContent(ch_text, ch_author, ch_trans, ch_publisher, ch_pub_date, user_id);
 		
 		AddTextMem addtext = new AddTextMem(chContent, jpContent, language);
+		
+		response.sendRedirect("add_text_mem.jsp");
 
 	}
 
