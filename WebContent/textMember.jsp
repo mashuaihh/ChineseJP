@@ -12,11 +12,14 @@
 	String user_id = (String) session.getAttribute("user_id");
 	SelectTextMem textMem = new SelectTextMem(user_id);
 	request.setAttribute("chh_ori", textMem.getChOriList());
+	request.setAttribute("jpp_ori", textMem.getJpOriList());
 %>
 	
-	
-	<%ArrayList<ChOriBean> s = (ArrayList<ChOriBean>) request.getAttribute("chh_ori"); %>
-	<%= s.size() %>
+	<c:forEach var="jp_each" items="${jpp_ori}">
+		<h2>${jp_each.jp_text }</h2>
+		<h2>${jp_each.ct_text }</h2>
+		<br>
+	</c:forEach>
 
 	<c:forEach var="ch_each" items="${chh_ori}">
 		<h2>${ch_each.ch_text }</h2>
