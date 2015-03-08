@@ -37,8 +37,7 @@
 			<input type="text" name="text_id" value="${fn:escapeXml(textBean.text_id) }" />
 			<label for="text">文本:</label>
 			<br>
-			<textarea id="text" name="text" rows="6" cols="50" style="resize:none">
-			<c:out value="${textBean.text_content }" />
+			<textarea id="text" name="text" rows="6" cols="50" style="resize:none"><c:out value="${textBean.text_content }" />
 			</textarea>
 			<br>
 			<label for="author">作者:</label>
