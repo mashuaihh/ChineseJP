@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.4">
   <servlet>
-    <servlet-name>search_ch</servlet-name>
-    <servlet-class>web.TransferCh</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>search_ch</servlet-name>
-    <url-pattern>/search_ch.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>login</servlet-name>
     <servlet-class>web.LoginDirect</servlet-class>
   </servlet>
@@ -56,9 +48,10 @@
     <servlet-name>uploadInfo</servlet-name>
     <url-pattern>/UpdateInfo.do</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>updateWord</servlet-name>
-    <servlet-class>web.UpdateWordServlet</servlet-class>
+    <servlet-class>web.UpdateInfoServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>updateWord</servlet-name>

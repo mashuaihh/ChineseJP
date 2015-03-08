@@ -16,8 +16,20 @@
 %>
 	
 	<c:forEach var="jp_each" items="${jpp_ori}">
-		<h2>${jp_each.jp_text }</h2>
-		<h2>${jp_each.ct_text }</h2>
+		<form action="UpdateWord.do" method="post">
+			<input type="text" name="ori" value="jp_ori" />
+			<input type="text" name="jp_id" value="${jp_each.jp_id }" />
+				<h2>${jp_each.jp_text }</h2>
+			<input type="submit" value="更新" />
+		</form>
+		
+		<form action="UpdateWord.do" method="post">
+			<input type="hidden" name="ori" value="jp_ori" />
+			<input type="hidden" name="ch_id" value="${ch_each.ch_id }" />
+				<h2>${jp_each.ct_text }</h2>
+			<input type="submit" value="更新" />
+		</form>
+		
 		<br>
 	</c:forEach>
 

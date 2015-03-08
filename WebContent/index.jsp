@@ -37,7 +37,7 @@
 			</form>
 			<a href="<%=uploadPath%>" style="text-decoration: none">上传文本</a> 
 			<br>
-			<a href="member_center.jsp" style="text-decoration: none">用户中心</a>
+			<a href="textMember.jsp" style="text-decoration: none">用户中心</a>
 
 	<%} %>
 		<br>

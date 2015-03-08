@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,42 +22,36 @@
 			String username = (String) session.getAttribute("login_name"); 
 			String user_id = (String) session.getAttribute("user_id"); 
 			// ch_id, ch_text, author, publisher, pub_date, trans
-			ArrayList<String> infoList = (ArrayList<String>) request.getAttribute("infoList");
-			String nation = (String) request.getAttribute("nation");
-			String text_id = (String) request.getAttribute("text_id");
 		%>
 	 		<h1>Welcome <%= username %></h1>
 			<br>
 			<h1>Your user ID is <%= user_id %></h1>
 			<br><br>
 			
-		<%if (nation.equals("jp")) { %>
-			<h2>更新日文条目</h2>
-		<% } else { %>
-			<h2>更新中文条目</h2>
-		<%
-		}
-		%>
 		
 		<form action="UpdateWord.do" method="post">
-			<div id="input">
-			<input type="hidden" name="nation" value="<%=nation %>" />
-			<input type="hidden" name="text_id" value="<%=text_id %>" />
+
+			<input type="text" name="ori" value="${fn:escapeXml(textBean.ori) }" />
+			<input type="text" name="updateLan" value="${fn:escapeXml(textBean.updateLan) }" />
+			<input type="text" name="updateTable" value="${fn:escapeXml(textBean.updateTable) }" />
+			<input type="text" name="text_id" value="${fn:escapeXml(textBean.text_id) }" />
 			<label for="text">文本:</label>
 			<br>
-			<textarea id="text" name="text" rows="6" cols="50" style="resize:none"><%=infoList.get(1) %></textarea>
+			<textarea id="text" name="text" rows="6" cols="50" style="resize:none">
+			<c:out value="${textBean.text_content }" />
+			</textarea>
 			<br>
 			<label for="author">作者:</label>
-			<input name="author" id="author" value="<%=infoList.get(2) %>" />
-			
+			<input name="author" id="author" value="${fn:escapeXml(textBean.author) }" />
+
 			<label for="trans">译者:</label>
-			<input name="trans" id="trans" value="<%=infoList.get(5) %>" />
-			
+			<input name="trans" id="trans" value="${fn:escapeXml(textBean.translator) }" />
+
 			<label for="publisher">出版社:</label>
-			<input name="publisher" id="jp_publisher" value="<%=infoList.get(3) %>" />
-			
+			<input name="publisher" id="jp_publisher" value="${fn:escapeXml(textBean.publisher) }" />
+
 			<label for="pub_date">出版时间:</label>
-			<input name="pub_date" id="pub_date" value="<%=infoList.get(4) %>" />
+			<input name="pub_date" id="pub_date" value="${fn:escapeXml(textBean.pub_date) }" />
 			</div>
 			
 			<input type="submit" value="确认修改" />
