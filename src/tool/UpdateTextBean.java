@@ -4,7 +4,7 @@ public class UpdateTextBean {
 	
 	private String updateTable = null;
 	private String updateLan = null;
-	private String ori = null;
+	private String ori = null; //jp_ori or ch_ori
 	
 	private String text_id = null;
 	private String text_content = null;

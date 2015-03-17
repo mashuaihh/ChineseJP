@@ -37,21 +37,20 @@
 			<input type="text" name="text_id" value="${fn:escapeXml(textBean.text_id) }" />
 			<label for="text">文本:</label>
 			<br>
-			<textarea id="text" name="text" rows="6" cols="50" style="resize:none"><c:out value="${textBean.text_content }" />
+			<textarea id="text" name="text_content" rows="6" cols="50" style="resize:none"><c:out value="${textBean.text_content }" />
 			</textarea>
 			<br>
 			<label for="author">作者:</label>
 			<input name="author" id="author" value="${fn:escapeXml(textBean.author) }" />
 
 			<label for="trans">译者:</label>
-			<input name="trans" id="trans" value="${fn:escapeXml(textBean.translator) }" />
+			<input name="translator" id="trans" value="${fn:escapeXml(textBean.translator) }" />
 
 			<label for="publisher">出版社:</label>
-			<input name="publisher" id="jp_publisher" value="${fn:escapeXml(textBean.publisher) }" />
+			<input name="publisher" id="publisher" value="${fn:escapeXml(textBean.publisher) }" />
 
 			<label for="pub_date">出版时间:</label>
 			<input name="pub_date" id="pub_date" value="${fn:escapeXml(textBean.pub_date) }" />
-			</div>
 			
 			<input type="submit" value="确认修改" />
 		</form>

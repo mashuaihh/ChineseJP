@@ -11,31 +11,46 @@
 <%
 	String user_id = (String) session.getAttribute("user_id");
 	SelectTextMem textMem = new SelectTextMem(user_id);
-	request.setAttribute("chh_ori", textMem.getChOriList());
-	request.setAttribute("jpp_ori", textMem.getJpOriList());
+	request.setAttribute("ch_ori", textMem.getChOriList());
+	request.setAttribute("jp_ori", textMem.getJpOriList());
 %>
 	
-	<c:forEach var="jp_each" items="${jpp_ori}">
-		<form action="UpdateWord.do" method="post">
+	<h1>日译中</h1>
+	<c:forEach var="jp_each" items="${jp_ori}">
+		<form action="UpdateWordInfo.do" method="post">
 			<input type="text" name="ori" value="jp_ori" />
 			<input type="text" name="jp_id" value="${jp_each.jp_id }" />
 				<h2>${jp_each.jp_text }</h2>
 			<input type="submit" value="更新" />
 		</form>
 		
-		<form action="UpdateWord.do" method="post">
-			<input type="hidden" name="ori" value="jp_ori" />
-			<input type="hidden" name="ch_id" value="${ch_each.ch_id }" />
+		<form action="UpdateWordInfo.do" method="post">
+			<input type="text" name="ori" value="jp_ori" />
+			<input type="text" name="ch_id" value="${jp_each.ct_id }" />
 				<h2>${jp_each.ct_text }</h2>
 			<input type="submit" value="更新" />
 		</form>
-		
 		<br>
 	</c:forEach>
 
-	<c:forEach var="ch_each" items="${chh_ori}">
-		<h2>${ch_each.ch_text }</h2>
-		<h2>${ch_each.jt_text }</h2>
+	<h1>I am the border</h1>
+	<h1>中译日</h1>
+
+	<c:forEach var="ch_each" items="${ch_ori}">
+		<form action="UpdateWordInfo.do" method="post">
+			<input type="text" name="ori" value="ch_ori" />
+			<input type="text" name="jp_id" value="${ch_each.jt_id }" />
+				<h2>${ch_each.jt_text }</h2>
+			<input type="submit" value="更新" />
+		</form>
+		
+		<form action="UpdateWordInfo.do" method="post">
+			<input type="text" name="ori" value="ch_ori" />
+			<input type="text" name="ch_id" value="${ch_each.ch_id }" />
+				<h2>${ch_each.ch_text }</h2>
+			<input type="submit" value="更新" />
+		</form>
+		
 		<br>
 	</c:forEach>
 
