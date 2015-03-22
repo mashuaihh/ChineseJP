@@ -50,6 +50,8 @@
 			</select>
 			<input type="submit" name="submit" value="搜索" />
 		</form>
+		
+	<a href="signup.jsp">sign up</a>
 	
 	<c:forEach var="jp_each" items="${jp_ori}">
 		<h2>${jp_each.jp_text }</h2>

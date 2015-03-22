@@ -33,7 +33,6 @@
 		<br>
 	</c:forEach>
 
-	<h1>I am the border</h1>
 	<h1>中译日</h1>
 
 	<c:forEach var="ch_each" items="${ch_ori}">

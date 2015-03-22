@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import tool.BCrypt;
+
 public class Login {
 	private boolean login_result;
 	
@@ -37,8 +39,9 @@ public class Login {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		
-		if (this.username.equals(this.username_enter) && this.psw.equals(this.psw_enter))
+		if (this.username.equals(this.username_enter) && BCrypt.checkpw(this.psw_enter, this.psw))
 			this.login_result = new Boolean("true");
 		else
 			this.login_result = new Boolean("false");
@@ -50,5 +53,16 @@ public class Login {
 	
 	public String getUserid() {
 		return this.user_id;
+	}
+	
+	public static void main(String[] args) {
+		String psw = "mashuaihh";
+		String hash = "$2a$14$nExIyxfOI0LDGx0AjpIFVOrweVh3dzdm3loWLyG.PpAAHKJOmwACq";
+
+		String salt = BCrypt.gensalt();
+		System.out.println(BCrypt.checkpw("mashuaihh",hash )==true);
+		System.out.println(psw);
+		System.out.println(salt);
+		System.out.println();
 	}
 }

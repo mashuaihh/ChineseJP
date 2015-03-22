@@ -2,27 +2,26 @@ package web;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import db.SearchWord;
+import db.UpdateUser;
+import tool.*;
 
 /**
- * Servlet implementation class SearchServlet
+ * Servlet implementation class SignUpServlet
  */
-@WebServlet("/SearchServlet")
-public class SearchServlet extends HttpServlet {
+@WebServlet("/SignUpServlet")
+public class SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchServlet() {
+    public SignUpServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,18 +38,21 @@ public class SearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String keyword = request.getParameter("keyword");
-		String language = request.getParameter("language");
-		HttpSession session = request.getSession();
-		Boolean status = (Boolean) session.getAttribute("login_status");
-		if (status == null) 
-			status = false;
 		
-		SearchWord sw = new SearchWord(keyword, language, status);
-		request.setAttribute("chs", sw.getChs());
-		request.setAttribute("jps", sw.getJps());
-		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-		view.forward(request, response);
+		String username = request.getParameter("username");
+		String psw = request.getParameter("psw");
+		String email = request.getParameter("email");
+		
+		String hashed = BCrypt.hashpw(psw, BCrypt.gensalt());
+		
+		UpdateUser uu = new UpdateUser();
+		uu.setActivated(0);
+		uu.setEmail(email);
+		uu.setPsw(hashed);
+		uu.setUsername(username);
+		uu.updateUser();
+		
+		response.sendRedirect("index.jsp");
 	}
 
 }
