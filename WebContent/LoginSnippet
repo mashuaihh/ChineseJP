@@ -1,5 +1,0 @@
-<%! final int LOGIN_YES = 1;
-	final int LOGIN_NO = 0;
-	Boolean LoginYes = true;
-	Boolean LoginNo = false;
-	%>

@@ -8,14 +8,14 @@ import java.sql.Statement;
 
 import tool.AddTextContent;
 
-public class AddTextMem {
+public class AddText {
 	private AddTextContent chContent = null;
 	private AddTextContent jpContent = null;
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private Integer gen_id = null;
 	
-	public AddTextMem(AddTextContent ch, AddTextContent jp, String lan) {
+	public AddText(AddTextContent ch, AddTextContent jp, String lan) {
 		this.chContent = ch;
 		this.jpContent = jp;
 		conn = new NewConnect().getConnection();

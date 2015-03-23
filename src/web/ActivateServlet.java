@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.InsertUser;
-import tool.*;
+import db.ActivateUser;
 
 /**
- * Servlet implementation class SignUpServlet
+ * Servlet implementation class ActivateServlet
  */
-@WebServlet("/SignUpServlet")
-public class SignUpServlet extends HttpServlet {
+@WebServlet("/ActivateServlet")
+public class ActivateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignUpServlet() {
+    public ActivateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,22 +36,12 @@ public class SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		String user_id = request.getParameter("user_id");
+		ActivateUser au = new ActivateUser(user_id);
 		
-		String username = request.getParameter("username");
-		String psw = request.getParameter("psw");
-		String email = request.getParameter("email");
-		
-		String hashed = BCrypt.hashpw(psw, BCrypt.gensalt());
-		
-		InsertUser uu = new InsertUser();
-		uu.setActivated(0);
-		uu.setEmail(email);
-		uu.setPsw(hashed);
-		uu.setUsername(username);
-		uu.updateUser();
-		
-		response.sendRedirect("index.jsp");
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+		response.sendRedirect(basePath + "/admin/member_admin.jsp");
 	}
 
 }

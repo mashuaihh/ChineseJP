@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import db.AddTextMem;
+import db.AddText;
 import tool.AddTextContent;
 
 /**
  * Servlet implementation class AddTextMemServlet
  */
 @WebServlet("/AddTextMemServlet")
-public class AddTextMemServlet extends HttpServlet {
+public class AddTextServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddTextMemServlet() {
+    public AddTextServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -59,10 +59,14 @@ public class AddTextMemServlet extends HttpServlet {
 		String ch_pub_date = request.getParameter("ch_pub_date");
 		AddTextContent chContent = new AddTextContent(ch_text, ch_author, ch_trans, ch_publisher, ch_pub_date, user_id);
 		
-		AddTextMem addtext = new AddTextMem(chContent, jpContent, language);
+		AddText addtext = new AddText(chContent, jpContent, language);
 		
-		response.sendRedirect("add_text_mem.jsp");
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+		response.sendRedirect(basePath + "/member/add_text_mem.jsp");
 
 	}
+	
+
 
 }

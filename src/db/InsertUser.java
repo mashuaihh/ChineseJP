@@ -9,14 +9,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class UpdateUser {
+public class InsertUser {
 	private String username = null;
 	private String psw = null;
 	private String email = null;
 	private String role = "member";
 	private Integer activated = null;
 	
-	public UpdateUser() {
+	public InsertUser() {
 		
 	}
 	

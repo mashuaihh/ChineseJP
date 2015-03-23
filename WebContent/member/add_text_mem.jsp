@@ -1,19 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, tool.*, db.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%@ include file="PathSnippet" %>
-<%@ include file="LoginSnippet" %>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户上传页</title>
 </head>
 <body>
-	<%  Boolean status = (Boolean) session.getAttribute("login_status");
-		if (status == null || status.equals(LoginNo)) { %> 
-			<h2>只有登录用户可以上传条目，请返回首页登录</h2>
-			<a href="<%=IndexPath%>" style="text-decoration: none">返回首页</a>
-		<!-- 	<h2>用户登陆</h2>
+	<c:choose>
+		<c:when test="${login_status==null || login_status == false }">
+			<h2>用户登陆</h2>
 			<form action="login2.do" method="post">
 				<label for="username">用户名:</label>
 				<input type="text" name="username" id="username"/>
@@ -23,20 +21,22 @@
 				<br>
 				<input type="submit" name="submit" value="登陆" />
 			</form>
-			-->
-	<%	} 
-		else if (status.equals(LoginYes)){ 
-			String username = (String) session.getAttribute("login_name"); 
-			String user_id = (String) session.getAttribute("user_id"); %>
-			<h1>Welcome <%= username %></h1>
-			<h1>You have successfully logined in!</h1>
-			<br>
-			<h1>Your user ID is <%= user_id %></h1>
+		</c:when>
+		
+		<c:when test="${login_status == true }">
+			<h1>Your name is : ${login_name }</h1>
+			<h1>Your id is : ${user_id }</h1>
+			
 			<form action="login2.do" method="get">
 				<input type="submit" name="submit" value="退出登陆" />
 			</form>
+			<a href="add_text_mem.jsp" style="text-decoration: none">上传文本</a> 
+			<br>
+			<a href="../index.jsp" style="text-decoration: none">返回首页</a>
+		</c:when>
+	</c:choose>
 
-	<form action="AddTextMem.do" method="post">
+	<form action="../AddTextMem.do" method="post">
 		
 	<div id="jp_input">
 		<label for="jp_text">日文文本:</label>
@@ -86,7 +86,7 @@
 	<input type="submit" name="submit" id="submit" value="justify" />
 	</form>
 	
-	<%} %> <!-- else if (status.equals(LoingYes)) -->
+
 	
 </body>
 

@@ -7,6 +7,22 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
+  <filter>
+    <filter-name>adminFilter</filter-name>
+    <filter-class>web.AdminFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>adminFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>memberFilter</filter-name>
+    <filter-class>web.MemberFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>memberFilter</filter-name>
+    <url-pattern>/member/*</url-pattern>
+  </filter-mapping>
   <servlet>
     <servlet-name>login</servlet-name>
     <servlet-class>web.LoginDirect</servlet-class>
@@ -31,7 +47,14 @@
     <servlet-name>login2</servlet-name>
     <url-pattern>/login2.do</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>RegexWord</servlet-name>
+    <servlet-class>web.SelectRegexServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegexWord</servlet-name>
+    <url-pattern>/selectRegexWord.do</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>uploadInfo</servlet-name>
     <servlet-class>web.UpdateInfoServlet</servlet-class>
@@ -58,7 +81,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>addTextMem</servlet-name>
-    <servlet-class>web.AddTextMemServlet</servlet-class>
+    <servlet-class>web.AddTextServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>addTextMem</servlet-name>
@@ -71,5 +94,14 @@
   <servlet-mapping>
     <servlet-name>signUp</servlet-name>
     <url-pattern>/signUp.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>activate</servlet-name>
+    <servlet-class>web.ActivateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>activate</servlet-name>
+    <url-pattern>/activate.do</url-pattern>
   </servlet-mapping>
 </web-app>

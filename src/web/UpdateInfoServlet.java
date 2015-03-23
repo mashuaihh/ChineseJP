@@ -76,7 +76,7 @@ public class UpdateInfoServlet extends HttpServlet {
 		
 		request.setAttribute("textBean", textBean);
 		
-		RequestDispatcher view = request.getRequestDispatcher("update.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("member/update.jsp");
 		view.forward(request, response);
 	}
 	

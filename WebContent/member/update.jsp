@@ -6,33 +6,15 @@
 <html>
 <head>
 
-<%@ include file="PathSnippet" %>
-<%@ include file="LoginSnippet" %>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>更新条目</title>
 </head>
 <body>
-	<%  Boolean status = (Boolean) session.getAttribute("login_status");
-		if (status == null || status.equals(LoginNo)) { %> 
-			<h2>只有登录用户可以进入此页面，请返回首页登录</h2>
-			<a href="<%=IndexPath%>" style="text-decoration: none">返回首页</a>
-	<%	}
-		else if (status.equals(LoginYes)){
-			String username = (String) session.getAttribute("login_name"); 
-			String user_id = (String) session.getAttribute("user_id"); 
-			// ch_id, ch_text, author, publisher, pub_date, trans
-		%>
-	 		<h1>Welcome <%= username %></h1>
-			<br>
-			<h1>Your user ID is <%= user_id %></h1>
-			<br><br>
-			
-		
+	
 		<form action="UpdateWord.do" method="post">
 
-			<input type="text" name="ori" value="${fn:escapeXml(textBean.ori) }" />
-			<input type="text" name="updateLan" value="${fn:escapeXml(textBean.updateLan) }" />
+			<input type="text" id="ori" name="ori" value="${fn:escapeXml(textBean.ori) }" />
+			<input type="text" id="updateLan" name="updateLan" value="${fn:escapeXml(textBean.updateLan) }" />
 			<input type="text" name="updateTable" value="${fn:escapeXml(textBean.updateTable) }" />
 			<input type="text" name="text_id" value="${fn:escapeXml(textBean.text_id) }" />
 			<label for="text">文本:</label>
@@ -55,6 +37,34 @@
 			<input type="submit" value="确认修改" />
 		</form>
 			
-	<%} %> <!-- }else if (status.equals(LoginYes)){  -->
 </body>
+
+<script type="text/javascript" >  
+
+	function closeIt() {
+		var ori = document.getElementById("ori");
+		var updateLan = document.getElementById("updateLan");
+		var ori_value = ori.value;
+		var updateLan_value = updateLan.value;
+		var ori_lan = ori_value.slice(0, 2);
+		
+		var author = document.getElementById("author");
+		var trans = document.getElementById("trans");
+		
+		if (ori_lan === updateLan_value) {
+			author.disabled = false;
+			trans.value = '';
+			trans.disabled = true;
+		} else {
+			trans.disabled = false;
+			author.value = '';
+			author.disabled = true;
+
+		}
+	}
+	
+	window.onload = closeIt;
+	window.onbeforeunload = closeIt;
+
+</script> 
 </html>

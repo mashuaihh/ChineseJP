@@ -1,6 +1,7 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,28 +12,31 @@ public class Login {
 	private boolean login_result;
 	
 	private Connection conn;
-	private Statement st;
 	
 	private String username;
 	private String psw;
 	private String username_enter;
 	private String psw_enter;
 	private String user_id;
+	private int active;
+	private String role;
 	
 	public Login(String username, String password) {
 		conn = new NewConnect().getConnection();
 		this.username_enter = username;
 		this.psw_enter = password;
-		String query = "SELECT user_id, name, password FROM users WHERE name = '" + username + "'";
+		String query = "SELECT user_id, name, password, role, activated FROM users WHERE name = '" + username + "'";
 		
 		try {
-			st = (Statement) conn.createStatement();
-			ResultSet rs = st.executeQuery(query);
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				this.user_id = rs.getString("user_id");
 				this.username = rs.getString("name");
 				this.psw = rs.getString("password");
+				this.active = rs.getInt("activated");
+				this.role = rs.getString("role");
 			}
 			conn.close();
 		} catch (SQLException e) {
@@ -41,7 +45,7 @@ public class Login {
 		}
 
 		
-		if (this.username.equals(this.username_enter) && BCrypt.checkpw(this.psw_enter, this.psw))
+		if (this.username.equals(this.username_enter) && BCrypt.checkpw(this.psw_enter, this.psw) && this.active == 1)
 			this.login_result = new Boolean("true");
 		else
 			this.login_result = new Boolean("false");
@@ -55,13 +59,16 @@ public class Login {
 		return this.user_id;
 	}
 	
+	public String getRole() {
+		return this.role;
+	}
+	
 	public static void main(String[] args) {
 		String psw = "mashuaihh";
-		String hash = "$2a$14$nExIyxfOI0LDGx0AjpIFVOrweVh3dzdm3loWLyG.PpAAHKJOmwACq";
 
 		String salt = BCrypt.gensalt();
-		System.out.println(BCrypt.checkpw("mashuaihh",hash )==true);
-		System.out.println(psw);
+//		System.out.println(BCrypt.checkpw("mashuaihh",hash )==true);
+		System.out.println(BCrypt.hashpw("cjkvword", salt));
 		System.out.println(salt);
 		System.out.println();
 	}

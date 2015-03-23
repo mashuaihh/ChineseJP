@@ -45,6 +45,7 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String username = request.getParameter("username");
 		String psw = request.getParameter("password");
+		
 		Login login = new Login(username, psw);
 		String user_id = login.getUserid();
 		
@@ -56,13 +57,16 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("login_status", status);
 			session.setAttribute("login_name", username);
 			session.setAttribute("user_id", user_id);
+			session.setAttribute("role", login.getRole());
 			response.sendRedirect("index.jsp");
 		}
 		else {
 			status = new Boolean("false");
 			session.setAttribute("login_status", status);
-			response.setHeader("Refresh", "3;URL=index.jsp");
-			response.sendRedirect("loginFailure.html");
+			String path = request.getContextPath();
+			String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+//			response.setHeader("Refresh", "4;URL=" + basePath + "/index.jsp");
+			response.sendRedirect("ErrLogin.html");
 		}
 	}
 

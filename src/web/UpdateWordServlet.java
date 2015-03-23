@@ -62,7 +62,7 @@ public class UpdateWordServlet extends HttpServlet {
 	
 		UpdateWord uw = new UpdateWord(textBean);
 		
-		response.sendRedirect("textMember.jsp");
+		response.sendRedirect("member/textMember.jsp");
 	}
 
 }

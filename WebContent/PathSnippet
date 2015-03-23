@@ -1,6 +1,9 @@
 <%
 String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/food/";
-String IndexPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/index.jsp";
-String uploadPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/add_text_mem.jsp";
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+String IndexPath = basePath + "/index.jsp";
+String uploadPath = basePath + "/member/add_text_mem.jsp";
+String centerPath = basePath + "/member/textMember.jsp";
+String updatePath = basePath + "/member/update.jsp";
+String adminMemPath = basePath + "/admin/member_admin.jsp";
 %>
