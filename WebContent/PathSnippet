@@ -7,3 +7,8 @@ String centerPath = basePath + "/member/textMember.jsp";
 String updatePath = basePath + "/member/update.jsp";
 String adminMemPath = basePath + "/admin/member_admin.jsp";
 %>
+
+<script src="css/jquery-1.11.2.min.js"></script>
+<script src="css/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />

@@ -33,4 +33,26 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>WebContent/css/bootstrap-theme.min.css</name>
+			<type>1</type>
+			<location>D:/My Documents/eclipse/ChineseJapanese/WebContent/css/bootstrap-theme.min.css</location>
+		</link>
+		<link>
+			<name>WebContent/css/bootstrap.min.css</name>
+			<type>1</type>
+			<location>D:/My Documents/eclipse/ChineseJapanese/WebContent/css/bootstrap.min.css</location>
+		</link>
+		<link>
+			<name>WebContent/css/bootstrap.min.js</name>
+			<type>1</type>
+			<location>D:/My Documents/eclipse/ChineseJapanese/WebContent/css/bootstrap.min.js</location>
+		</link>
+		<link>
+			<name>WebContent/css/jquery-1.11.2.min.js</name>
+			<type>1</type>
+			<location>D:/My Documents/eclipse/ChineseJapanese/WebContent/css/jquery-1.11.2.min.js</location>
+		</link>
+	</linkedResources>
 </projectDescription>
