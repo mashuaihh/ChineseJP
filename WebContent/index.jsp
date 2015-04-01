@@ -13,6 +13,10 @@
 	div#table {
 	background-color: white;
 	}
+	.table-striped>tbody>tr:nth-child(odd)>td, 
+	.table-striped>tbody>tr:nth-child(odd)>th {
+   	background-color: #D8D7D7;
+ 	}
 </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -107,37 +111,29 @@
 
     </div> <!-- /container -->
     
-    <div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Panel heading</div>
-
-  <!-- Table -->
-  <table class="table">
-    ...
-  </table>
-</div>
 
 	<div class="container">
       <div class="jumbotron"  id="table"  style="padding-top: 1px;">
-		   <table class="table">
+
+		   <table class="table table-hover table-striped">
        		 <thead>
-          		<tr>
-            		<th>日文原文</th>
-            		<th>中文译文</th>
-          		</tr>
+	          		<tr>
+	            			<th>日文原文</th>
+	            			<th>中文译文</th>
+	          		</tr>
         	</thead>
         	
-        	<tbody>
+        	 <tbody>
           		<c:forEach var="jp_each" items="${jp_ori}">
           			<tr>
-						<td>${jp_each.jp_text }</td>
-						<td>${jp_each.ct_text }</td>
+						<td class="col-md-6">${jp_each.jp_text }</td>
+						<td class="col-md-6">${jp_each.ct_text }</td>
 					</tr>
 				</c:forEach>
-        	</tbody>
-      	</table>
-      
-		   <table class="table">
+        	 </tbody>
+      	    </table>
+
+		   <table class="table table-hover table-striped">
        		 <thead>
           		<tr>
             		<th>中文原文</th>
@@ -147,9 +143,11 @@
         	
         	<tbody>
           		<c:forEach var="ch_each" items="${ch_ori}">
-          			<tr>
-						<td>${ch_each.ch_text }</td>
-						<td>${ch_each.jt_text }</td>
+          			<tr class='clickable=row' data-href="#collapseExample" data-toggle="collapse" 
+          			aria-expanded="false" aria-controls="collapseExample">
+						<td class="col-md-6">${ch_each.ch_text }</td>
+						<td class="col-md-6">${ch_each.jt_text }</td>
+						<td class="collapse" id="collapseExamplee">out out out</td>
 					</tr>
 				</c:forEach>
         	</tbody>
@@ -168,6 +166,24 @@
 			<h1>暂无日文原文记录</h1>
 		</c:when>
 	</c:choose>
+	
+	<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Button with data-target
+</button>
+<div class="collapse in" id="collapseExample">
+  <div class="well">
+  asdfasdfasdxacvac
+  </div>
+</div>
+<div class="collapse in">on my goooood</div>
+	
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".clickable-row").click(function() {
+			window.document.location = $(this).data("href");
+		});
+	});
+</script>
 
 </body>
 </html>

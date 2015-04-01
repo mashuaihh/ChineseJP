@@ -4,89 +4,128 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../css/jquery-1.11.2.min.js"></script>
+<script src="../css/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css" />
+<style type="text/css">
+	.col-md-3 {
+	padding: 14px 9px 0px 10px;
+	}
+</style>
+
 <title>用户上传页</title>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${login_status==null || login_status == false }">
-			<h2>用户登陆</h2>
-			<form action="login2.do" method="post">
-				<label for="username">用户名:</label>
-				<input type="text" name="username" id="username"/>
-				<br><br>
-				<label for="password">密码:</label>
-				<input type="password" name="password" id="password"/>
-				<br>
-				<input type="submit" name="submit" value="登陆" />
-			</form>
-		</c:when>
-		
-		<c:when test="${login_status == true }">
-			<h1>Your name is : ${login_name }</h1>
-			<h1>Your id is : ${user_id }</h1>
-			
-			<form action="login2.do" method="get">
-				<input type="submit" name="submit" value="退出登陆" />
-			</form>
-			<a href="add_text_mem.jsp" style="text-decoration: none">上传文本</a> 
-			<br>
-			<a href="../index.jsp" style="text-decoration: none">返回首页</a>
-		</c:when>
-	</c:choose>
+	<nav class="navbar navbar-default navbar-fixed-top">
+      		<div class="container">
+        		<div class="navbar-header">
+          			<div class="navbar-brand"></div>
+       			 </div>
+       			 <div id="navbar" class="navbar-collapse collapse">
+        			<ul class="nav navbar-nav">
+			            <li><a href="../index.jsp">主页</a></li>
+			            <li><a href="#about">关于</a></li>
+			            <li><a href="#contact">联系我们</a></li>
+			        </ul>
+        			
+        			<div class="navbar-right">
+		          		<c:choose>
 
-	<form action="../AddTextMem.do" method="post">
-		
-	<div id="jp_input">
-		<label for="jp_text">日文文本:</label>
-		<br>
-		<textarea id="jp_text" name="jp_text" rows="6" cols="50" style="resize:none"></textarea>
-		<br>
-		
-		<label for="jp_author">作者:</label>
-		<input name="jp_author" id="jp_author" />
-		
-		<label for="jp_trans">译者:</label>
-		<input name="jp_trans" id="jp_trans" />
-		
-		<label for="jp_publisher">出版社:</label>
-		<input name="jp_publisher" id="jp_publisher" />
-		
-		<label for="jp_pub_date">出版时间:</label>
-		<input name="jp_pub_date" id="jp_pub_date" />
-	</div>
-	
-	<br><br><br>
-	
-	<div id="ch_input">
-		<label for="ch_text">中文文本:</label>
-		<br>
-		<textarea id="ch_text" name="ch_text" rows="6" cols="50" style="resize:none"></textarea>
-		<br>
-		
-		<label for="ch_author">作者:</label>
-		<input name="ch_author" id="ch_author" />
-		
-		<label for="ch_trans">译者:</label>
-		<input name="ch_trans" id="ch_trans" />
-		
-		<label for="ch_publisher">出版社:</label>
-		<input name="ch_publisher" id="ch_publisher" />
-		
-		<label for="ch_pub_date">出版时间:</label>
-		<input name="ch_pub_date" id="ch_publish" />
-	</div>
-	
-	<br><br>
-	<select name="language" id="selectLan" onchange="toggle(this)">
-		<option value="jp">原文为日文，译文为中文</option>
-		<option value="ch">原文为中文，译文为日文</option>
-	</select>
-	<input type="submit" name="submit" id="submit" value="justify" />
-	</form>
-	
+							<c:when test="${login_status == true && role == 'member' }">
+								<ul class="nav navbar-nav">
+									<li><a>${login_name} ${role}</a></li>
+									<li><a href="">个人中心</a></li>
+									<li class="active"><a href="">上传语料</a></li>
+									<li><a href="fileUpload.jsp">upload file</a></li>
+									<div class="navbar-form navbar-right">
+										<div class="form-group">
+											<form action="../login2.do" method="get">
+												<input class="btn btn-success" type="submit" name="submit" value="退出登陆" />
+											</form>
+										</div>
+									</div>
+								</ul>
+							</c:when>
+							
+							<c:when test="${login_status == true && role == 'admin' }">
+								<ul class="nav navbar-nav">
+									<li><a>${login_name} ${role}</a></li>
+									<li><a href="">Admin Page</a></li>
+									<li><a href="">Upload</a></li>
+									<div class="navbar-form navbar-right">
+										<div class="form-group">
+											<form action="../login2.do" method="get">
+												<input class="btn btn-success" type="submit" name="submit" value="退出登陆" />
+											</form>
+										</div>
+									</div>
+								</ul>
+							</c:when>
+		          		</c:choose>
+         			</div>
+        		 </div><!--/.navbar-collapse -->
+            </div>
+        </nav>
 
+
+	<div class=container style="padding-top: 100px">
+		<form action="../AddTextMem.do" method="post" >
+		<div class="form-group">
+			<div class="col-md-6">
+		        <textarea id="jp_text" class="form-control" name="jp_text" rows="6" cols="50" style="resize:none" placeholder="日文文本"></textarea>
+			</div>
+
+			<div class="col-md-6">
+				<textarea id="ch_text" class="form-control" name="ch_text" rows="6" cols="50" style="resize:none" placeholder="中文文本"></textarea>
+			</div>
+		</div>
+
+		<div class="form-inline">
+			<div class="col-md-3">
+				<input name="jp_author" id="jp_author" class="form-control" placeholder="日文原作者"/>
+			</div>
+			<div class="col-md-3">
+				<input name="jp_trans" id="jp_trans" class="form-control" placeholder="翻译者"/>
+            </div>
+
+			<div class="col-md-3">
+				<input name="ch_author" id="ch_author" class="form-control" placeholder="中文原作者"/>
+			</div>
+			<div class="col-md-3">
+				<input name="ch_trans" id="ch_trans" class="form-control" placeholder="翻译者"/>
+        	</div>
+        </div>
+        
+		<div class="form-inline">
+			<div class="col-md-3">
+				<input name="jp_publisher" id="jp_publisher" class="form-control" placeholder="出版社"/>
+			</div>
+			<div class="col-md-3">
+				<input name="jp_pub_date" id="jp_pub_date" class="form-control" placeholder="出版日期"/>
+            </div>
+
+			<div class="col-md-3">
+				<input name="ch_publisher" id="ch_publisher" class="form-control" placeholder="出版社"/>
+			</div>
+			<div class="col-md-3">
+				<input name="ch_pub_date" id="ch_publish" class="form-control" placeholder="出版日期"/>
+        	</div>
+        </div>
+		
+		<div class="form-inline">
+			<div style="padding-top:30px">
+			<select class="col-md-3 form-control" name="language" id="selectLan" onchange="toggle(this)" >
+				<option value="jp">原文为日文，译文为中文</option>
+				<option value="ch">原文为中文，译文为日文</option>
+			</select>
+			<input class="col-md-2 btn btn-success" type="submit" name="submit" id="submit" value="上传"/>
+			</div><!-- end of div padding -->
+		</div>
+		
+		</form>
+	</div>
 	
 </body>
 
@@ -115,8 +154,8 @@
 			
 			jp_author.disabled = false;
 			ch_trans.disabled = false;
-			jp_author.value = '';
-			ch_trans.value = '';
+			ch_author.value = '';
+			jp_trans.value = '';
 		}
 	}
 	

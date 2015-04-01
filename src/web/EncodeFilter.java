@@ -10,18 +10,17 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet Filter implementation class MemberFilter
+ * Servlet Filter implementation class EncodeFilter
  */
-@WebFilter("/MemberFilter")
-public class MemberFilter implements Filter {
+@WebFilter("/EncodeFilter")
+public class EncodeFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public MemberFilter() {
+    public EncodeFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -36,20 +35,12 @@ public class MemberFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		request.setCharacterEncoding("UTF-8");
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpSession session = req.getSession();
-		Boolean login_status = (Boolean) session.getAttribute("login_status");
-		String role = (String) session.getAttribute("role");
-		
-		System.out.println(role);
-		if (login_status == null) {
-			request.getRequestDispatcher("../ErrNotMember.html").forward(request, response);
-		}
-		else if (login_status == false || !(role.equals("member") || role.equals("admin"))) {
-			request.getRequestDispatcher("../ErrNotMember.html").forward(request, response);
-		} else {
-			chain.doFilter(request, response);
-		}
+		System.out.println("context path   " + req.getContextPath());
+		System.out.println("I have set it..dffdf.");
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
 	}
 
 	/**

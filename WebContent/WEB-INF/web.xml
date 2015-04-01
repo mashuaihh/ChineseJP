@@ -8,6 +8,17 @@
     <res-auth>Container</res-auth>
   </resource-ref>
   <filter>
+  	<description>
+  		This filter set all request encoding method to UTF-8
+  	</description>
+    <filter-name>encode</filter-name>
+    <filter-class>web.EncodeFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>encode</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
     <filter-name>adminFilter</filter-name>
     <filter-class>web.AdminFilter</filter-class>
   </filter>
@@ -95,7 +106,6 @@
     <servlet-name>signUp</servlet-name>
     <url-pattern>/signUp.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>activate</servlet-name>
     <servlet-class>web.ActivateServlet</servlet-class>
@@ -103,5 +113,17 @@
   <servlet-mapping>
     <servlet-name>activate</servlet-name>
     <url-pattern>/activate.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>
+  		Invoked in member/fileUpload.jsp.
+  		The servlet get the excel file from users and use db class to write the content of excel into database.
+  	</description>
+    <servlet-name>uploadExcel</servlet-name>
+    <servlet-class>web.UploadExcelServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>uploadExcel</servlet-name>
+    <url-pattern>/uploadExcel.do</url-pattern>
   </servlet-mapping>
 </web-app>
