@@ -65,8 +65,8 @@ public class UploadExcel {
 			for (int i = 0; i < 8; i++) {
 				Cell cell = row.getCell(i);
 				if (cell == null) {
-					cell = row.createCell(i);
-					cell.setCellValue("");
+					row.createCell(i);
+					cell = row.getCell(i);
 				}
 				String content = cell.getRichStringCellValue().getString();
 				column[i] = content;
@@ -139,6 +139,13 @@ public class UploadExcel {
 		return true;
 	}
 	
+	public ArrayList<AddTextContent> getChList() {
+		return this.chList;
+	}
+	
+	public ArrayList<AddTextContent> getJpList() {
+		return this.jpList;
+	}
 	
 	@SuppressWarnings("unused")
 	public void show() {
