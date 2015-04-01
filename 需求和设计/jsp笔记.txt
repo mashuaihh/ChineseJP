@@ -21,3 +21,5 @@ use F8 (dont use F5 F6) to execute to the next line, to see the variable. Or wil
 debug 的时候请先确认print的语句里语法能print出需要的东西。
 今天3.25 把 vlist.get(i) 错写成了 vlist.get(1)
 导致自己以为自己没有办法将程序调对，其实早就对了。
+
+-----------------------------------------------------------------------------------------
