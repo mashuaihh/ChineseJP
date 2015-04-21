@@ -111,7 +111,7 @@
       </c:if>
       <c:if test="${isSearch == true }">
        <div class="jumbotron" style="text-align: center; padding-top: 25px; padding-bottom: 25px;">
-          <form class="form-inline"  action="selectRegexWord.do" method="post">
+          <form class="form-inline" style="float: left; padding-left: 30px" action="selectRegexWord.do" method="post">
           	 <div class="radio">
           	 	<c:if test="${param.language == 'ch' }">
           	 	<label><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
@@ -130,11 +130,18 @@
       			</span>
           	 </div>
           </form>
+          <form class="form">
+          	  <input type="hidden" name="keyword" class="form-control" 
+          	 	value="${fn:escapeXml(param.keyword) }"/>
+		      <button type="submit" style="margin-left: 126px;"
+		      class="btn btn-primary">Download</button>
+          </form>
        </div>
       </c:if>
     </div> <!-- /container -->
     
 
+	<c:if test="${isSearch == true }">
 	<div class="container">
       <div class="jumbotron"  id="table"  style="padding-top: 1px;">
 
@@ -177,5 +184,6 @@
       	</table>
       </div>
     </div> <!-- /container -->
+    </c:if>
 </body>
 </html>
