@@ -50,6 +50,7 @@ public class SelectRegexServlet extends HttpServlet {
 		SelectRegex sr = new SelectRegex(keyword, language, status);
 		
 		
+		request.setAttribute("isSearch", sr.getIsSearch());
 		request.setAttribute("jp_ori", sr.getJpOriList());
 		request.setAttribute("ch_ori", sr.getChOriList());
 		

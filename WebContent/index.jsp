@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, tool.*, db.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,6 +10,9 @@
 <style type="text/css">
 	.jumbotron h1 {
 	font-size:62px;
+	}
+	.jumbotron {
+	background-color: #dddddd;	
 	}
 	div#table {
 	background-color: white;
@@ -87,19 +91,15 @@
             </div>
         </nav>
     
-
-		<div class="container" style="padding-top: 70px">
-
-      <!-- Main component for a primary marketing message or call to action -->
+	<div class="container" style="padding-top: 70px">
+	 <c:if test="${isSearch == null || isSearch == false }">
       <div class="jumbotron" style="text-align: center; padding-top: 50px; padding-bottom: 67px;">
         <h1><b>中日对译语料库</b></h1>
         <form action="selectRegexWord.do" method="post" style="padding-right: 101px; padding-left: 101px; padding-top: 18px;">
-			
 			<div class="radio">
       			<label style="padding-right: 33px;"><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
       			<label><input type="radio" name="language" value="jp">使用日文检索</label>
     		</div>
-    		
 			<div class="input-group">
       			<input type="text" name="keyword" class="form-control" placeholder="输入一个或多个关键词" />
       			<span class="input-group-btn">
@@ -108,7 +108,30 @@
     		</div><!-- /input-group -->
 		</form>
       </div>
-
+      </c:if>
+      <c:if test="${isSearch == true }">
+       <div class="jumbotron" style="text-align: center; padding-top: 25px; padding-bottom: 25px;">
+          <form class="form-inline"  action="selectRegexWord.do" method="post">
+          	 <div class="radio">
+          	 	<c:if test="${param.language == 'ch' }">
+          	 	<label><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
+				<label><input type="radio" name="language" value="jp">使用日文检索</label>
+				</c:if>
+                <c:if test="${param.language == 'jp' }">
+          	 	<label><input type="radio" name="language" value="ch" >使用中文检索</label>
+				<label><input type="radio" name="language" value="jp" checked="checked">使用日文检索</label>
+				</c:if>   
+          	 </div>
+          	 <div class="input-group">
+          	 	<input type="text" name="keyword" class="form-control" 
+          	 	value="${fn:escapeXml(param.keyword) }"/>
+				<span class="input-group-btn">
+        			<button type="submit" class="btn btn-primary" style="width: 80px">检索</button>
+      			</span>
+          	 </div>
+          </form>
+       </div>
+      </c:if>
     </div> <!-- /container -->
     
 
@@ -153,37 +176,6 @@
         	</tbody>
       	</table>
       </div>
-
     </div> <!-- /container -->
-	
-	<c:choose>
-		<c:when test="${jp_ori == null && ch_ori == null}">
-		</c:when>
-		<c:when test="${jp_ori != null && ch_ori == null}">
-			<h1>暂无中文原文记录</h1>
-		</c:when>
-		<c:when test="${jp_ori == null && ch_ori != null}">
-			<h1>暂无日文原文记录</h1>
-		</c:when>
-	</c:choose>
-	
-	<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-  Button with data-target
-</button>
-<div class="collapse in" id="collapseExample">
-  <div class="well">
-  asdfasdfasdxacvac
-  </div>
-</div>
-<div class="collapse in">on my goooood</div>
-	
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".clickable-row").click(function() {
-			window.document.location = $(this).data("href");
-		});
-	});
-</script>
-
 </body>
 </html>

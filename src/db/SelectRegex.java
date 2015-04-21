@@ -16,11 +16,13 @@ public class SelectRegex {
 	private String[] keywords = null;
 	private ArrayList<JpOriBean>  jpOriList = new ArrayList<JpOriBean>();
 	private ArrayList<ChOriBean>  chOriList = new ArrayList<ChOriBean>();
+	private Boolean isSearch = false;
 	
 	public SelectRegex(String keyword, String language, boolean status) {
 		conn = new NewConnect().getConnection();
 		this.language = language;
 		this.keywords = processKey(keyword);
+		this.isSearch = true;
 		
 		selectJpOri();
 		selectChOri();
@@ -31,6 +33,10 @@ public class SelectRegex {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public Boolean getIsSearch() {
+		return this.isSearch;
 	}
 	
 	public ArrayList<JpOriBean> getJpOriList() {
