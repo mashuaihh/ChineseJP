@@ -41,6 +41,8 @@ public class SelectRegexServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String keyword = request.getParameter("keyword");
 		String language = request.getParameter("language");
+		String jpOriIndex = request.getParameter("jpOriIndex");
+		String chOriIndex = request.getParameter("chOriIndex");
 		//language = "ch" or "jp"
 		HttpSession session = request.getSession();
 		Boolean status = (Boolean) session.getAttribute("login_status");
@@ -48,7 +50,18 @@ public class SelectRegexServlet extends HttpServlet {
 			status = false;
 		
 		SelectRegex sr = new SelectRegex(keyword, language, status);
-		
+
+		if (jpOriIndex != null && chOriIndex != null) {
+         sr.setChOriIndex(Integer.parseInt(jpOriIndex));
+		 sr.setJpOriIndex(Integer.parseInt(chOriIndex));
+		} else if (jpOriIndex != null && chOriIndex == null) {
+			sr.setJpOriIndex(Integer.parseInt(jpOriIndex));
+		} else if (jpOriIndex == null && chOriIndex != null) {
+			sr.setChOriIndex(Integer.parseInt(chOriIndex));
+		} else {
+		// do nothing	
+		}
+		sr.selectContent();
 		
 		request.setAttribute("isSearch", sr.getIsSearch());
 		request.setAttribute("jp_ori", sr.getJpOriList());

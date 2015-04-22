@@ -55,7 +55,6 @@
 								</form>
 							</c:when>
 
-
 							<c:when test="${login_status == true && role == 'member' }">
 								<ul class="nav navbar-nav">
 									<li><a>${login_name} ${role}</a></li>
@@ -123,17 +122,18 @@
 				</c:if>   
           	 </div>
           	 <div class="input-group">
-          	 	<input type="text" name="keyword" class="form-control" 
+          	 	<input type="text" name="keyword" class="form-control" style="padding-right: 107px" 
           	 	value="${fn:escapeXml(param.keyword) }"/>
 				<span class="input-group-btn">
-        			<button type="submit" class="btn btn-primary" style="width: 80px">检索</button>
+        			<button type="submit" class="btn btn-primary" 
+        			style="width: 80px; ">检索</button>
       			</span>
           	 </div>
           </form>
           <form class="form">
           	  <input type="hidden" name="keyword" class="form-control" 
           	 	value="${fn:escapeXml(param.keyword) }"/>
-		      <button type="submit" style="margin-left: 126px;"
+		      <button type="submit" style="margin-left: 106px;"
 		      class="btn btn-primary">Download</button>
           </form>
        </div>
@@ -156,12 +156,15 @@
         	 <tbody>
           		<c:forEach var="jp_each" items="${jp_ori}">
           			<tr>
+          				<td>${jp_each.jp_id }</td>
 						<td class="col-md-6">${jp_each.jp_text }</td>
+						<td>${jp_each.ct_id }</td>
 						<td class="col-md-6">${jp_each.ct_text }</td>
 					</tr>
 				</c:forEach>
         	 </tbody>
       	    </table>
+      	    <form 
 
 		   <table class="table table-hover table-striped">
        		 <thead>
@@ -173,11 +176,11 @@
         	
         	<tbody>
           		<c:forEach var="ch_each" items="${ch_ori}">
-          			<tr class='clickable=row' data-href="#collapseExample" data-toggle="collapse" 
-          			aria-expanded="false" aria-controls="collapseExample">
+          			<tr>
+          				<td>${ch_each.ch_id }</td>
 						<td class="col-md-6">${ch_each.ch_text }</td>
+						<td>${ch_each.jt_id }</td>
 						<td class="col-md-6">${ch_each.jt_text }</td>
-						<td class="collapse" id="collapseExamplee">out out out</td>
 					</tr>
 				</c:forEach>
         	</tbody>
