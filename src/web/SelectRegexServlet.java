@@ -66,6 +66,8 @@ public class SelectRegexServlet extends HttpServlet {
 		request.setAttribute("isSearch", sr.getIsSearch());
 		request.setAttribute("jp_ori", sr.getJpOriList());
 		request.setAttribute("ch_ori", sr.getChOriList());
+		request.setAttribute("jpOriPageNum", sr.getJpOriPageNum());
+		request.setAttribute("chOriPageNum", sr.getChOriPageNum());
 		
 		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 		view.forward(request, response);

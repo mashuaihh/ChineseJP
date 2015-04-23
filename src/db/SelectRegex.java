@@ -17,6 +17,8 @@ public class SelectRegex {
 	private ArrayList<JpOriBean>  jpOriList = new ArrayList<JpOriBean>();
 	private ArrayList<ChOriBean>  chOriList = new ArrayList<ChOriBean>();
 	private Boolean isSearch = false;
+	private int jpOriPagesNum = 0;
+	private int chOriPagesNum = 0;
 	private int jpOriIndex = 0;
 	private int chOriIndex = 0;
 	private int span = 10;
@@ -130,6 +132,7 @@ public class SelectRegex {
 						ct_jp_num);
 				jpOriList.add(jpOriContent);
 			}
+			this.countJpOriPageNum();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -186,10 +189,90 @@ public class SelectRegex {
 						jt_ch_num);
 				chOriList.add(chOriContent);
 			}
+			this.countChOriPageNum();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private void countChOriPageNum() {
+		try {
+			if (this.language.equals("jp")) {
+				String column = "jp.jt_text";
+				String sql1 = "SELECT COUNT(*) FROM ch_ori AS ch, jp_trans AS jp " + 
+						"WHERE ch.ch_id = jp.ch_num AND ";
+				String sql = processSql(sql1, column);
+				pstmt = conn.prepareStatement(sql);
+				for (int i = 0; i < this.keywords.length; i++) {
+					pstmt.setString(i+1, this.keywords[i]);	
+				}
+			} else {
+				String column = "ch.ch_text";
+				String sql2 = "SELECT COUNT(*) FROM ch_ori AS ch, jp_trans AS jp " + 
+						"WHERE ch.ch_id = jp.ch_num AND ";
+				String sql = processSql(sql2, column);
+				pstmt = conn.prepareStatement(sql);
+				for (int i = 0; i < this.keywords.length; i++) {
+					pstmt.setString(i+1, this.keywords[i]);	
+				}
+			}
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			int pages = 0;
+			while (rs.next()) {
+				pages = rs.getInt("COUNT(*)");
+			}
+			this.chOriPagesNum = this.getAllPagesNum(pages);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void countJpOriPageNum() {
+		try {
+			if (this.language.equals("jp")) {
+				String column = "jp.jp_text";
+				String sql1 = "SELECT COUNT(*) FROM jp_ori AS jp, ch_trans AS ch " + 
+						"WHERE jp.jp_id = ch.jp_num AND ";
+				String sql = processSql(sql1, column);
+				pstmt = conn.prepareStatement(sql);
+				for (int i = 0; i < this.keywords.length; i++) {
+					pstmt.setString(i+1, this.keywords[i]);	
+				}
+				
+			} else { //language is "ch"
+				String column = "ch.ct_text";
+				String sql2 = "SELECT COUNT(*) FROM jp_ori AS jp, ch_trans AS ch " + 
+						"WHERE jp.jp_id = ch.jp_num AND ";
+				String sql = processSql(sql2, column);
+				pstmt = conn.prepareStatement(sql);
+				for (int i = 0; i < this.keywords.length; i++) {
+					pstmt.setString(i+1, this.keywords[i]);
+				}
+			}
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			int pages = 0;
+			while (rs.next()) {
+				pages = rs.getInt("COUNT(*)");
+			}
+			this.jpOriPagesNum = this.getAllPagesNum(pages);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Integer getJpOriPageNum() {
+		return this.jpOriPagesNum;
+	}
+	
+	public Integer getChOriPageNum() {
+		return this.chOriPagesNum;
 	}
 	
 	public void setJpOriIndex(int i) {
@@ -214,5 +297,20 @@ public class SelectRegex {
 	
 	private String getJpOriOffset() {
 		return "" + this.jpOriIndex * 10 + " , " + this.span + " " ;
+	}
+	
+	private int getAllPagesNum(int resultNum) {
+		int remain = resultNum % span;
+		int divResult = resultNum / span;
+		int result;
+		if (remain == 0) {
+			result = divResult;
+		} else {
+			result = divResult + 1;
+		}
+		return result;
+	}
+	
+	public static void main(String[] args) {
 	}
 }

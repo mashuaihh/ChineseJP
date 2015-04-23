@@ -164,7 +164,8 @@
 				</c:forEach>
         	 </tbody>
       	    </table>
-      	    <form 
+      	    <h1>The jpOriPage num is ${jpOriPageNum }</h1>
+
 
 		   <table class="table table-hover table-striped">
        		 <thead>
@@ -185,6 +186,8 @@
 				</c:forEach>
         	</tbody>
       	</table>
+      	    <h1>The chOriPage num is ${chOriPageNum }</h1>
+
       </div>
     </div> <!-- /container -->
     </c:if>
