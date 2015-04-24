@@ -20,6 +20,12 @@
 	.table-striped>tbody>tr:nth-child(odd)>td, 
 	.table-striped>tbody>tr:nth-child(odd)>th {
    	background-color: #D8D7D7;
+   	
+   	.non-active {
+   	pointer-events: none;
+   	cursor: default;
+   	}
+   	
  	}
 </style>
 
@@ -94,7 +100,7 @@
 	 <c:if test="${isSearch == null || isSearch == false }">
       <div class="jumbotron" style="text-align: center; padding-top: 50px; padding-bottom: 67px;">
         <h1><b>中日对译语料库</b></h1>
-        <form action="selectRegexWord.do" method="post" style="padding-right: 101px; padding-left: 101px; padding-top: 18px;">
+        <form action="selectRegexWord.do" method="get" style="padding-right: 101px; padding-left: 101px; padding-top: 18px;">
 			<div class="radio">
       			<label style="padding-right: 33px;"><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
       			<label><input type="radio" name="language" value="jp">使用日文检索</label>
@@ -110,7 +116,7 @@
       </c:if>
       <c:if test="${isSearch == true }">
        <div class="jumbotron" style="text-align: center; padding-top: 25px; padding-bottom: 25px;">
-          <form class="form-inline" style="float: left; padding-left: 30px" action="selectRegexWord.do" method="post">
+          <form class="form-inline" style="float: left; padding-left: 30px" action="selectRegexWord.do" method="get">
           	 <div class="radio">
           	 	<c:if test="${param.language == 'ch' }">
           	 	<label><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
@@ -165,6 +171,61 @@
         	 </tbody>
       	    </table>
       	    <h1>The jpOriPage num is ${jpOriPageNum }</h1>
+      	    
+      	    <nav>
+      	    	<ul class="pagination">
+      	    		<c:url var="url1" value="/selectRegexWord.do">
+				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
+    					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="jpOriIndex" value="${fn:escapeXml(jpPreviousIndex) }" />
+    				</c:url>
+    				<c:if test="${jpCurrentIndex == jpFirstIndex }">
+    					<li class="disabled non-active">
+    						<a href="#"><span aria-hidden="true">&laquo;</span></a>
+    					</li>
+    				</c:if>
+    				<c:if test="${jpCurrentIndex != jpFirstIndex }">
+    					<li>
+    						<a href="${url1 }"><span aria-hidden="true">&laquo;</span></a>
+    					</li>
+    				</c:if>
+      	    	
+    			<c:forEach var="jpPage" items="${jpOriPagesList }">
+    				<c:url var="url" value="/selectRegexWord.do">
+				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
+    					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="jpOriIndex" value="${fn:escapeXml(jpPage) }" />
+    				</c:url>
+					
+    				<c:if test="${jpPage == jpCurrentIndex }">
+    					<li class="active">
+    						<a href="${url }">${jpPage }</a>
+    					</li>
+    				</c:if>
+    				<c:if test="${jpPage  != jpCurrentIndex }">
+    					<li>
+    						<a href="${url }">${jpPage }</a>
+    					</li>
+    				</c:if>
+    			</c:forEach>
+    			
+    				<c:url var="url2" value="/selectRegexWord.do">
+				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
+    					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="jpOriIndex" value="${fn:escapeXml(jpNextIndex) }" />
+    				</c:url>
+    				<c:if test="${jpCurrentIndex == jpOriPageNum }">
+    					<li class="disabled non-active" >
+    						<a href="#"><span aria-hidden="true">&raquo;</span></a>
+    					</li>
+    				</c:if>
+    				<c:if test="${jpCurrentIndex != jpOriPageNum }">
+    					<li>
+    						<a href="${url2 }"><span aria-hidden="true">&raquo;</span></a>
+    					</li>
+    				</c:if>
+      	    	</ul>
+      	    </nav>	
 
 
 		   <table class="table table-hover table-striped">
@@ -187,6 +248,62 @@
         	</tbody>
       	</table>
       	    <h1>The chOriPage num is ${chOriPageNum }</h1>
+      	    
+      	    <nav>
+      	    	<ul class="pagination">
+      	    		<c:url var="url1" value="/selectRegexWord.do">
+				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
+    					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="chOriIndex" value="${fn:escapeXml(chPreviousIndex) }" />
+    				</c:url>
+    				<c:if test="${chCurrentIndex == chFirstIndex }">
+    					<li class="disabled non-active">
+    						<a href="#"><span aria-hidden="true">&laquo;</span></a>
+    					</li>
+    				</c:if>
+    				<c:if test="${chCurrentIndex != chFirstIndex }">
+    					<li>
+    						<a href="${url1 }"><span aria-hidden="true">&laquo;</span></a>
+    					</li>
+    				</c:if>
+      	    	
+    			<c:forEach var="chPage" items="${chOriPagesList }">
+    				<c:url var="url" value="/selectRegexWord.do">
+				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
+    					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="chOriIndex" value="${fn:escapeXml(chPage) }" />
+    				</c:url>
+					
+    				<c:if test="${chPage == chCurrentIndex }">
+    					<li class="active">
+    						<a href="${url }">${chPage }</a>
+    					</li>
+    				</c:if>
+    				<c:if test="${chPage  != chCurrentIndex }">
+    					<li>
+    						<a href="${url }">${chPage }</a>
+    					</li>
+    				</c:if>
+    			</c:forEach>
+    			
+    				<c:url var="url2" value="/selectRegexWord.do">
+				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
+    					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="chOriIndex" value="${fn:escapeXml(chNextIndex) }" />
+    				</c:url>
+    				<c:if test="${chCurrentIndex == chOriPageNum }">
+    					<li class="disabled non-active" >
+    						<a href="#"><span aria-hidden="true">&raquo;</span></a>
+    					</li>
+    				</c:if>
+    				<c:if test="${chCurrentIndex != chOriPageNum }">
+    					<li>
+    						<a href="${url2 }"><span aria-hidden="true">&raquo;</span></a>
+    					</li>
+    				</c:if>
+      	    	</ul>
+      	    </nav>	
+
 
       </div>
     </div> <!-- /container -->

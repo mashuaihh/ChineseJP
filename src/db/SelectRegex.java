@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import tool.ChOriBean;
 import tool.JpOriBean;
@@ -22,13 +23,14 @@ public class SelectRegex {
 	private int jpOriIndex = 0;
 	private int chOriIndex = 0;
 	private int span = 10;
+	private List<Integer> jpOriPageList = new ArrayList<Integer>();
+	private List<Integer> chOriPageList = new ArrayList<Integer>();
 	
 	public SelectRegex(String keyword, String language, boolean status) {
 		conn = new NewConnect().getConnection();
 		this.language = language;
 		this.keywords = processKey(keyword);
 		this.isSearch = true;
-		
 			}
 	
 	public void selectContent() {
@@ -266,7 +268,7 @@ public class SelectRegex {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Integer getJpOriPageNum() {
 		return this.jpOriPagesNum;
 	}

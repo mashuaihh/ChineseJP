@@ -23,7 +23,6 @@ public class EncodeFilter implements Filter {
     public EncodeFilter() {
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see Filter#destroy()
 	 */
@@ -37,9 +36,9 @@ public class EncodeFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		HttpServletRequest req = (HttpServletRequest) request;
-		System.out.println("context path   " + req.getContextPath());
-		System.out.println("I have set it..dffdf.");
 		// pass the request along the filter chain
+		response.setContentType("text/html; charset=UTF-8");
+		 response.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);
 	}
 
