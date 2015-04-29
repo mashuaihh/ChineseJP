@@ -44,11 +44,11 @@ public class Login {
 			e.printStackTrace();
 		}
 
-		
-		if (this.username.equals(this.username_enter) && BCrypt.checkpw(this.psw_enter, this.psw) && this.active == 1)
-			this.login_result = new Boolean("true");
-		else
-			this.login_result = new Boolean("false");
+		if (this.username == null || this.psw == null) {
+			this.login_result = false;
+		} else if (this.username.equals(this.username_enter) && BCrypt.checkpw(this.psw_enter, this.psw) && this.active == 1) {
+			this.login_result = true;
+		}
 	}
 	
 	public boolean getLogin_result() {

@@ -136,12 +136,20 @@
       			</span>
           	 </div>
           </form>
-          <form class="form">
+          <c:if test="${login_status == null || login_status == false }">
+		      <button id="download" style="margin-left: 106px;" disabled="disabled"
+		      class="btn btn-primary">下载为Excel</button>
+          </c:if>
+          <c:if test="${login_status == true }">
+          <form class="form" action="downloadExcel.do" method="get">
           	  <input type="hidden" name="keyword" class="form-control" 
           	 	value="${fn:escapeXml(param.keyword) }"/>
+          	  <input type="hidden" name="language" class="form-control" 
+          	 	value="${fn:escapeXml(param.language) }"/>
 		      <button type="submit" style="margin-left: 106px;"
-		      class="btn btn-primary">Download</button>
+		      class="btn btn-primary">下载为Excel</button>
           </form>
+          </c:if>
        </div>
       </c:if>
     </div> <!-- /container -->
@@ -150,7 +158,18 @@
 	<c:if test="${isSearch == true }">
 	<div class="container">
       <div class="jumbotron"  id="table"  style="padding-top: 1px;">
+      	<div class="checkbox" style="display: inline;">
+      		<label>
+      			<input type="checkbox" id="show_jp" checked="checked" value="show_jp">显示原文为日文部分
+      		</label>
+      	</div>
+      	<div class="checkbox" style="display: inline;padding-left: 32px;" >
+      		<label>
+      			<input type="checkbox" id="show_ch" checked="checked" value="show_ch">显示原文为中文部分
+      		</label>
+      	</div>
 
+      	<div id="jp_ori">
 		   <table class="table table-hover table-striped">
        		 <thead>
 	          		<tr>
@@ -162,15 +181,13 @@
         	 <tbody>
           		<c:forEach var="jp_each" items="${jp_ori}">
           			<tr>
-          				<td>${jp_each.jp_id }</td>
 						<td class="col-md-6">${jp_each.jp_text }</td>
-						<td>${jp_each.ct_id }</td>
 						<td class="col-md-6">${jp_each.ct_text }</td>
 					</tr>
 				</c:forEach>
         	 </tbody>
       	    </table>
-      	    <h1>The jpOriPage num is ${jpOriPageNum }</h1>
+      	    <p>共${jpOriPageNum }页</p>
       	    
       	    <nav>
       	    	<ul class="pagination">
@@ -178,6 +195,7 @@
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpPreviousIndex) }" />
+    					<c:param name="chOriIndex" value="${fn:escapeXml(chCurrentIndex) }" />
     				</c:url>
     				<c:if test="${jpCurrentIndex == jpFirstIndex }">
     					<li class="disabled non-active">
@@ -195,6 +213,7 @@
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpPage) }" />
+    					<c:param name="chOriIndex" value="${fn:escapeXml(chCurrentIndex) }" />
     				</c:url>
 					
     				<c:if test="${jpPage == jpCurrentIndex }">
@@ -213,6 +232,7 @@
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpNextIndex) }" />
+    					<c:param name="chOriIndex" value="${fn:escapeXml(chCurrentIndex) }" />
     				</c:url>
     				<c:if test="${jpCurrentIndex == jpOriPageNum }">
     					<li class="disabled non-active" >
@@ -226,8 +246,9 @@
     				</c:if>
       	    	</ul>
       	    </nav>	
+		/div> <!--  end of div id="jp_ori" -->
 
-
+		<div id="ch_ori">
 		   <table class="table table-hover table-striped">
        		 <thead>
           		<tr>
@@ -239,15 +260,13 @@
         	<tbody>
           		<c:forEach var="ch_each" items="${ch_ori}">
           			<tr>
-          				<td>${ch_each.ch_id }</td>
 						<td class="col-md-6">${ch_each.ch_text }</td>
-						<td>${ch_each.jt_id }</td>
 						<td class="col-md-6">${ch_each.jt_text }</td>
 					</tr>
 				</c:forEach>
         	</tbody>
       	</table>
-      	    <h1>The chOriPage num is ${chOriPageNum }</h1>
+      	    <p>共${chOriPageNum }页</p>
       	    
       	    <nav>
       	    	<ul class="pagination">
@@ -255,6 +274,7 @@
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chPreviousIndex) }" />
+    					<c:param name="jpOriIndex" value="${fn:escapeXml(jpCurrentIndex) }" />
     				</c:url>
     				<c:if test="${chCurrentIndex == chFirstIndex }">
     					<li class="disabled non-active">
@@ -271,6 +291,7 @@
     				<c:url var="url" value="/selectRegexWord.do">
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="jpOriIndex" value="${fn:escapeXml(jpCurrentIndex) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chPage) }" />
     				</c:url>
 					
@@ -287,9 +308,10 @@
     			</c:forEach>
     			
     				<c:url var="url2" value="/selectRegexWord.do">
-				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
+    				  <c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chNextIndex) }" />
+    					<c:param name="jpOriIndex" value="${fn:escapeXml(jpCurrentIndex) }" />
     				</c:url>
     				<c:if test="${chCurrentIndex == chOriPageNum }">
     					<li class="disabled non-active" >
@@ -303,10 +325,30 @@
     				</c:if>
       	    	</ul>
       	    </nav>	
+		</div>
 
 
       </div>
     </div> <!-- /container -->
     </c:if>
 </body>
+<script type="text/javascript">
+	$('#show_jp').change(function() {
+		if ($(this).is(":checked")) {
+			$('#jp_ori').show();
+		} else {
+			$('#jp_ori').hide();
+		}
+	});
+	$('#show_ch').change(function() {
+		if ($(this).is(":checked")) {
+			$('#ch_ori').show();
+		} else {
+			$('#ch_ori').hide();
+		}
+	});
+	$('#download').click(function() {
+		alert("只有用户可以下载搜索结果");
+	})
+</script>
 </html>

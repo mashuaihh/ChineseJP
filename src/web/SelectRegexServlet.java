@@ -51,8 +51,8 @@ public class SelectRegexServlet extends HttpServlet {
 
 		if (jpOriIndex != null && chOriIndex != null) {
 			
-         sr.setChOriIndex(Integer.parseInt(jpOriIndex) - 1);
-		 sr.setJpOriIndex(Integer.parseInt(chOriIndex) - 1);
+         sr.setChOriIndex(Integer.parseInt(chOriIndex) - 1);
+		 sr.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
 		 
 		 pg.setChOriIndex(Integer.parseInt(chOriIndex));
 		 pg.setJpOriIndex(Integer.parseInt(jpOriIndex));
@@ -60,23 +60,25 @@ public class SelectRegexServlet extends HttpServlet {
 		 jpIndex = Integer.parseInt(jpOriIndex);
 		 chIndex = Integer.parseInt(chOriIndex);
 		 
-		} else if (jpOriIndex != null && chOriIndex == null) {
-
-			sr.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
-			pg.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
-			
-			jpIndex = Integer.parseInt(jpOriIndex);
-			chIndex = 1;
-
-		} else if (jpOriIndex == null && chOriIndex != null) {
-
-			sr.setChOriIndex(Integer.parseInt(chOriIndex) - 1);
-			pg.setChOriIndex(Integer.parseInt(chOriIndex));
-			
-			chIndex = Integer.parseInt(chOriIndex);
-			jpIndex = 1;
-
-		} else {
+		} 
+//		else if (jpOriIndex != null && chOriIndex == null) {
+//
+//			sr.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
+//			pg.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
+//			
+//			jpIndex = Integer.parseInt(jpOriIndex);
+//			chIndex = 1;
+//
+//		} else if (jpOriIndex == null && chOriIndex != null) {
+//
+//			sr.setChOriIndex(Integer.parseInt(chOriIndex) - 1);
+//			pg.setChOriIndex(Integer.parseInt(chOriIndex));
+//			
+//			chIndex = Integer.parseInt(chOriIndex);
+//			jpIndex = 1;
+//
+//		} 
+		else {
 		// do nothing	
 			chIndex = 1;
 			jpIndex = 1;
@@ -99,13 +101,13 @@ public class SelectRegexServlet extends HttpServlet {
 		request.setAttribute("jpCurrentIndex", jpIndex);
 		request.setAttribute("jpPreviousIndex", jpIndex - 1);
 		request.setAttribute("jpNextIndex", jpIndex + 1);
-		request.setAttribute("jpFirstIndex", pg.getJpOriPageList().size() - 9);
+		request.setAttribute("jpFirstIndex", pg.getJpFirstPage());
 		request.setAttribute("jpLastIndex", pg.getJpOriPageList().size());
 
 		request.setAttribute("chCurrentIndex", chIndex);
 		request.setAttribute("chPreviousIndex", chIndex - 1);
 		request.setAttribute("chNextIndex", chIndex + 1);
-		request.setAttribute("chFirstIndex", pg.getChOriPageList().size() - 9);
+		request.setAttribute("chFirstIndex", pg.getChFirstPage());
 		request.setAttribute("chLastIndex", pg.getChOriPageList().size());
 
 		RequestDispatcher view = request.getRequestDispatcher("index.jsp");

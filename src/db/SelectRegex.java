@@ -25,6 +25,7 @@ public class SelectRegex {
 	private int span = 10;
 	private List<Integer> jpOriPageList = new ArrayList<Integer>();
 	private List<Integer> chOriPageList = new ArrayList<Integer>();
+	private boolean hasLimit = true;
 	
 	public SelectRegex(String keyword, String language, boolean status) {
 		conn = new NewConnect().getConnection();
@@ -34,6 +35,19 @@ public class SelectRegex {
 			}
 	
 	public void selectContent() {
+		selectJpOri();
+		selectChOri();
+		
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void selectAllContent() {
+		this.hasLimit = false;
+		
 		selectJpOri();
 		selectChOri();
 		
@@ -89,18 +103,20 @@ public class SelectRegex {
 				String sql1 = "SELECT * FROM jp_ori AS jp, ch_trans AS ch " + 
 						"WHERE jp.jp_id = ch.jp_num AND ";
 				String sql = processSql(sql1, column);
-				sql = sql + " ORDER BY jp.jp_id LIMIT " + this.getJpOriOffset();
+				if (this.hasLimit)
+					sql = sql + " ORDER BY jp.jp_id LIMIT " + this.getJpOriOffset();
 				pstmt = conn.prepareStatement(sql);
 				for (int i = 0; i < this.keywords.length; i++) {
 					pstmt.setString(i+1, this.keywords[i]);	
 				}
-				
+
 			} else { //language is "ch"
 				String column = "ch.ct_text";
 				String sql2 = "SELECT * FROM jp_ori AS jp, ch_trans AS ch " + 
 						"WHERE jp.jp_id = ch.jp_num AND ";
 				String sql = processSql(sql2, column);
-				sql = sql + " ORDER BY jp.jp_id LIMIT " + this.getJpOriOffset();
+				if (this.hasLimit)
+					sql = sql + " ORDER BY jp.jp_id LIMIT " + this.getJpOriOffset();
 				pstmt = conn.prepareStatement(sql);
 				for (int i = 0; i < this.keywords.length; i++) {
 					pstmt.setString(i+1, this.keywords[i]);
@@ -141,6 +157,7 @@ public class SelectRegex {
 		}
 	}
 	
+
 	private void selectChOri() {
 		try {
 			if (this.language.equals("jp")) {
@@ -148,7 +165,8 @@ public class SelectRegex {
 				String sql1 = "SELECT * FROM ch_ori AS ch, jp_trans AS jp " + 
 						"WHERE ch.ch_id = jp.ch_num AND ";
 				String sql = processSql(sql1, column);
-				sql = sql + " ORDER BY ch.ch_id LIMIT " + this.getChOriOffset();
+				if (this.hasLimit)
+					sql = sql + " ORDER BY ch.ch_id LIMIT " + this.getChOriOffset();
 				pstmt = conn.prepareStatement(sql);
 				for (int i = 0; i < this.keywords.length; i++) {
 					pstmt.setString(i+1, this.keywords[i]);	
@@ -158,7 +176,8 @@ public class SelectRegex {
 				String sql2 = "SELECT * FROM ch_ori AS ch, jp_trans AS jp " + 
 						"WHERE ch.ch_id = jp.ch_num AND ";
 				String sql = processSql(sql2, column);
-				sql = sql + " ORDER BY ch.ch_id LIMIT " + this.getChOriOffset();
+				if (this.hasLimit)
+					sql = sql + " ORDER BY ch.ch_id LIMIT " + this.getChOriOffset();
 				pstmt = conn.prepareStatement(sql);
 				for (int i = 0; i < this.keywords.length; i++) {
 					pstmt.setString(i+1, this.keywords[i]);	

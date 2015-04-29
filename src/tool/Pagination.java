@@ -79,6 +79,22 @@ public class Pagination {
 		}
 	}
 	
+	public Integer getChFirstPage() {
+		if (this.chOriPagesSum > 9) {
+			return this.chOriPagesSum - 9;
+		} else {
+			return 1;
+		}
+	}
+	
+	public Integer getJpFirstPage() {
+		if (this.jpOriPagesSum > 9) {
+			return this.jpOriPagesSum - 9;
+		} else {
+			return 1;
+		}
+	}
+	
 	public List<Integer> getJpOriPageList() {
 		return this.jpOriPageList;
 	}

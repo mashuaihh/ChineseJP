@@ -9,11 +9,13 @@
 <script src="../css/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css" />
+<!--  
 <style type="text/css">
 	.col-md-3 {
 	padding: 14px 9px 0px 10px;
 	}
 </style>
+-->
 
 <title>用户上传页</title>
 </head>
@@ -36,9 +38,8 @@
 							<c:when test="${login_status == true && role == 'member' }">
 								<ul class="nav navbar-nav">
 									<li><a>${login_name} ${role}</a></li>
-									<li><a href="">个人中心</a></li>
+									<li><a href="textMember.jsp">个人中心</a></li>
 									<li class="active"><a href="">上传语料</a></li>
-									<li><a href="fileUpload.jsp">upload file</a></li>
 									<div class="navbar-form navbar-right">
 										<div class="form-group">
 											<form action="../login2.do" method="get">
@@ -69,9 +70,26 @@
             </div>
         </nav>
 
+	<div class="container" style="padding-top: 100px">
+		请选择上传方式
+		<select id="updateByHand">
+			<option value="file">上传Excel文件</option>
+			<option value="hand">手工输入上传内容</option>
+		</select>
+		<br/>
 
-	<div class=container style="padding-top: 100px">
-		<form action="../AddTextMem.do" method="post" >
+		<form id="fileArea" method="post" action="../uploadExcel.do" enctype="multipart/form-data">
+			请选择要上传的文件，格式仅限Excel
+			<select name="language">
+				<option value="ch">原文中文，译文日文</option>
+				<option value="jp">原文日文，译文中文</option>
+			</select>
+			<br/>
+			<input type="file" name="dataFile" id="fileChooser"/><br/>
+			<input type="submit" value="Upload" />
+		</form>
+		
+		<form id="handArea" action="../AddTextMem.do" method="post" >
 		<div class="form-group">
 			<div class="col-md-6">
 		        <textarea id="jp_text" class="form-control" name="jp_text" rows="6" cols="50" style="resize:none" placeholder="日文文本"></textarea>
@@ -114,14 +132,12 @@
         	</div>
         </div>
 		
-		<div class="form-inline">
-			<div style="padding-top:30px">
-			<select class="col-md-3 form-control" name="language" id="selectLan" onchange="toggle(this)" >
+		<div class="form-inline pull-right">
+			<select class="col-md-3 form-control" style="padding-top: 0px" name="language" id="selectLan" onchange="toggle(this)" >
 				<option value="jp">原文为日文，译文为中文</option>
 				<option value="ch">原文为中文，译文为日文</option>
 			</select>
-			<input class="col-md-2 btn btn-success" type="submit" name="submit" id="submit" value="上传"/>
-			</div><!-- end of div padding -->
+			<input class="col-md-2 btn btn-success form-control" type="submit" name="submit" id="submit" value="上传"/>
 		</div>
 		
 		</form>
@@ -137,6 +153,16 @@
 	
 	jp_trans.disabled = true;
 	ch_author.disabled = true;
+	
+	$('#updateByHand').change(function() {
+		if ($('#updateByHand').val() === "file") {
+			$('#handArea').hide();
+			$('#fileArea').show();
+		} else {
+			$('#handArea').show();
+			$('#fileArea').hide();
+		}
+	});
 
 	function toggle(el) {
 		var lang = el.options[el.selectedIndex].value;
@@ -171,6 +197,12 @@
 		var opt= document.getElementById('selectLan');
 	    opt.value = "jp";
 	}
+	
+	$(document).ready(function() {
+		$('#handArea').hide();
+		$('#fileArea').show();
+	});
+
 	window.onbeforeunload = closeIt;
 
 </script> 
