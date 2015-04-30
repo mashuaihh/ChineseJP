@@ -57,8 +57,7 @@
 									<li><a href="">Upload</a></li>
 									<div class="navbar-form navbar-right">
 										<div class="form-group">
-											<form action="../login2.do" method="get">
-												<input class="btn btn-success" type="submit" name="submit" value="退出登陆" />
+											<form action="../login2.do" method="get"> <input class="btn btn-success" type="submit" name="submit" value="退出登陆" />
 											</form>
 										</div>
 									</div>
@@ -76,9 +75,10 @@
 			<option value="file">上传Excel文件</option>
 			<option value="hand">手工输入上传内容</option>
 		</select>
-		<br/>
+		<br/><br/>
 
-		<form id="fileArea" method="post" action="../uploadExcel.do" enctype="multipart/form-data">
+		<div id="fileArea">
+		<form method="post" action="../uploadExcel.do" enctype="multipart/form-data">
 			请选择要上传的文件，格式仅限Excel
 			<select name="language">
 				<option value="ch">原文中文，译文日文</option>
@@ -86,8 +86,19 @@
 			</select>
 			<br/>
 			<input type="file" name="dataFile" id="fileChooser"/><br/>
-			<input type="submit" value="Upload" />
+			<input type="submit" class="btn btn-success" value="上传" />
 		</form>
+		
+		<br/>
+		<strong>注意：</strong>上传文件只能为<strong>Excel</strong>，且必须使用固定格式。<br/>
+		格式如下：<br/>
+		<br/>
+		<strong>原文为中文，译文为日文</strong> 时请使用下图中的格式：<br/>
+		<img src="../images/chOri2.bmp" alt="some text">	
+		<br/><br/>
+		<strong>原文为日文，译文为中文</strong> 时请使用下图中的格式：<br/>
+		<img src="../images/jpOri2.bmp" alt="some text">	
+		</div>
 		
 		<form id="handArea" action="../AddTextMem.do" method="post" >
 		<div class="form-group">

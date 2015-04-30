@@ -54,5 +54,15 @@
 			<type>1</type>
 			<location>D:/My Documents/eclipse/ChineseJapanese/WebContent/css/jquery-1.11.2.min.js</location>
 		</link>
+		<link>
+			<name>WebContent/images/chOri2.bmp</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/user/桌面/chOri2.bmp</location>
+		</link>
+		<link>
+			<name>WebContent/images/jpOri2.bmp</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/user/桌面/jpOri2.bmp</location>
+		</link>
 	</linkedResources>
 </projectDescription>
