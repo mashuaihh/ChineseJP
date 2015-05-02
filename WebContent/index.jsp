@@ -246,7 +246,7 @@
     				</c:if>
       	    	</ul>
       	    </nav>	
-		/div> <!--  end of div id="jp_ori" -->
+		</div> <!--  end of div id="jp_ori" -->
 
 		<div id="ch_ori">
 		   <table class="table table-hover table-striped">
