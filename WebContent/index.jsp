@@ -11,9 +11,6 @@
 	.jumbotron h1 {
 	font-size:62px;
 	}
-	.jumbotron {
-	background-color: #dddddd;	
-	}
 	div#table {
 	background-color: white;
 	}

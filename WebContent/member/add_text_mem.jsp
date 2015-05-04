@@ -90,9 +90,9 @@
 		</form>
 		
 		<br/>
-		<strong>注意：</strong>上传文件只能为<strong>Excel</strong>，且必须使用固定格式。<br/>
-		格式如下：<br/>
-		<br/>
+		<div class="well">
+		<strong>注意：</strong>上传文件只能为<strong>Excel</strong>，且必须使用固定格式。格式如下：<br/>
+		</div>
 		<strong>原文为中文，译文为日文</strong> 时请使用下图中的格式：<br/>
 		<img src="../images/chOri2.bmp" alt="some text">	
 		<br/><br/>
