@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*, tool.*, db.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -42,7 +42,7 @@
        			 <div id="navbar" class="navbar-collapse collapse">
         			<ul class="nav navbar-nav">
 			            <li class="active"><a href="index.jsp">主页</a></li>
-			            <li><a href="#about">关于</a></li>
+			            <li><a href="about.jsp">关于</a></li>
 			            <li><a href="#contact">联系我们</a></li>
 			        </ul>
         			
@@ -99,6 +99,7 @@
 	<div class="container" style="padding-top: 70px">
 	 <c:if test="${isSearch == null || isSearch == false }">
       <div class="jumbotron" style="text-align: center; padding-top: 50px; padding-bottom: 67px;">
+      	<p><b>教育部哲学社会科学研究重大课题攻关项目“东亚国家语言中<br/>汉字词汇使用现状研究”中间成果</b></p>
         <h1><b>中日对译语料库</b></h1>
         <form action="selectRegexWord.do" method="get" style="padding-right: 101px; padding-left: 101px; padding-top: 18px;">
 			<div class="radio">
@@ -349,6 +350,6 @@
 	});
 	$('#download').click(function() {
 		alert("只有用户可以下载搜索结果");
-	})
+	});
 </script>
 </html>

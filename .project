@@ -64,5 +64,10 @@
 			<type>1</type>
 			<location>C:/Documents and Settings/user/桌面/jpOri2.bmp</location>
 		</link>
+		<link>
+			<name>WebContent/images/new.jpg</name>
+			<type>1</type>
+			<location>D:/My Documents/eclipse/ChineseJapanese/WebContent/images/new.jpg</location>
+		</link>
 	</linkedResources>
 </projectDescription>
