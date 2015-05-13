@@ -93,6 +93,7 @@
             </div>
         </nav>
     
+
 	<div class="container" style="padding-top: 70px">
 	 <c:if test="${isSearch == null || isSearch == false }">
       <div class="jumbotron" style="text-align: center; padding-top: 50px; padding-bottom: 67px;">
