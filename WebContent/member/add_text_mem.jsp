@@ -28,8 +28,8 @@
        			 <div id="navbar" class="navbar-collapse collapse">
         			<ul class="nav navbar-nav">
 			            <li><a href="../index.jsp">主页</a></li>
-			            <li><a href="#about">关于</a></li>
-			            <li><a href="#contact">联系我们</a></li>
+			            <li><a href="../about.jsp">关于</a></li>
+			            <li><a href="../contact.jsp">联系我们</a></li>
 			        </ul>
         			
         			<div class="navbar-right">
@@ -94,10 +94,10 @@
 		<strong>注意：</strong>上传文件只能为<strong>Excel</strong>，且必须使用固定格式。格式如下：<br/>
 		</div>
 		<strong>原文为中文，译文为日文</strong> 时请使用下图中的格式：<br/>
-		<img src="../images/chOri2.bmp" alt="some text">	
+		<img src="../images/ch_ori.bmp" alt="some text">	
 		<br/><br/>
 		<strong>原文为日文，译文为中文</strong> 时请使用下图中的格式：<br/>
-		<img src="../images/jpOri2.bmp" alt="some text">	
+		<img src="../images/jp_ori.bmp" alt="some text">	
 		</div>
 		
 		<form id="handArea" action="../AddTextMem.do" method="post" >

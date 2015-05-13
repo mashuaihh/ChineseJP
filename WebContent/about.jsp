@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>About</title>
+<title>关于</title>
 <%@ include file="PathSnippet" %>
 </head>
 <body>
@@ -19,7 +19,7 @@
         			<ul class="nav navbar-nav">
 			            <li><a href="index.jsp">主页</a></li>
 			            <li class="active"><a href="#">关于</a></li>
-			            <li><a href="#contact">联系我们</a></li>
+			            <li><a href="contact.jsp">联系我们</a></li>
 			        </ul>
         			
         			<div class="navbar-right">
