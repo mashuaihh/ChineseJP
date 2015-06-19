@@ -15,6 +15,8 @@ public class InsertUser {
 	private String email = null;
 	private String role = "member";
 	private Integer activated = null;
+	private String institute = null;
+	private String memo = null;
 	
 	public InsertUser() {
 		
@@ -24,8 +26,8 @@ public class InsertUser {
 //		Connection conn = getConnection();
 		Connection conn = new NewConnect().getConnection();
 		String sql = "INSERT INTO users"
-				+ "(name, password, email, role, activated) " + 
-					"VALUES (?, ?, ?, ?, ?)";
+				+ "(name, password, email, role, activated, institute, memo) " + 
+					"VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, this.username);
@@ -33,28 +35,13 @@ public class InsertUser {
 			pstmt.setString(3, this.email);
 			pstmt.setString(4, this.role);
 			pstmt.setInt(5, this.activated);
+			pstmt.setString(6, this.institute);
+			pstmt.setString(7, this.memo);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	private static Connection getConnection() {
-		String dsName = "java:comp/env/jdbc/dbTest";
-		Connection conn = null;
-		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup(dsName);
-			conn = ds.getConnection();
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return conn;
 	}
 	
 	public void setUsername(String str) {
@@ -67,6 +54,14 @@ public class InsertUser {
 	
 	public void setEmail(String str) {
 		this.email = str;
+	}
+	
+	public void setInstitute(String str) {
+		this.institute = str;
+	}
+
+	public void setMemo (String str) {
+		this.memo = str;
 	}
 	
 	public void setRole(String str) {

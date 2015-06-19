@@ -55,8 +55,8 @@
 							<c:when test="${login_status == true && role == 'admin' }">
 								<ul class="nav navbar-nav">
 									<li><a>${login_name} ${role}</a></li>
-									<li><a href="<%=adminMemPath %>">Admin Page</a></li>
-									<li><a href="<%=uploadPath%>">Upload</a></li>
+									<li><a href="<%=adminMemPath %>">管理用户</a></li>
+									<li><a href="<%=uploadPath%>">上传语料</a></li>
 									<div class="navbar-form navbar-right">
 										<div class="form-group">
 											<form action="login2.do" method="get">

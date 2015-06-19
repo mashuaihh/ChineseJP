@@ -15,7 +15,7 @@ public class NewConnect {
 		driver = "com.mysql.jdbc.Driver";
 		url = "jdbc:mysql://mysql2732-mashuaihh."
 				+ "cloudplatform.hk/chjp?useUnicode=yes&characterEncoding=UTF-8" ;    
-	    user = "root" ;  
+	    user = "root" ; 
 	    password = "RSOmkc88926" ;   
 	    
 	    setDevelopment();

@@ -6,7 +6,8 @@ public class UserDataBean {
 	private String email;
 	private String role;
 	private int activated;
-	private String note;
+	private String institute;
+	private String memo;
 	
 	public UserDataBean() {
 		
@@ -44,20 +45,28 @@ public class UserDataBean {
 		return this.role;
 	}
 	
+	public void setInstitute(String str) {
+		this.institute = str;
+	}
+	
+	public String getInstitute() {
+		return this.institute;
+	}
+	
+	public void setMemo(String str) {
+		this.memo = str;
+	}
+	
+	public String getMemo() {
+		return this.memo;
+	}
+	
 	public void setActivated(int num) {
 		this.activated = num;
 	}
 	
 	public int getActivated() {
 		return this.activated;
-	}
-	
-	public void setNote(String str) {
-		this.note = str;
-	}
-	
-	public String getNote() {
-		return this.note;
 	}
 	
 }

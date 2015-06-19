@@ -8,9 +8,6 @@
 
 <%@ include file="PathSnippet" %>
 <style type="text/css">
-	.jumbotron h1 {
-	font-size:62px;
-	}
 	div#table {
 	background-color: white;
 	}
@@ -46,7 +43,7 @@
         			<div class="navbar-right">
 		          		<c:choose>
 							<c:when test="${login_status==null || login_status == false }">
-								<form class="navbar-form" action="login2.do" method="post">
+								<form name="loginForm" class="navbar-form" onsubmit="return(validateLogin());" action="login2.do" method="post">
 									<div class="form-group">
 										<input type="text" name="username" id="username" class="form-control input-sm" placeholder="用户名"/>
 									</div>
@@ -76,8 +73,8 @@
 							<c:when test="${login_status == true && role == 'admin' }">
 								<ul class="nav navbar-nav">
 									<li><a>${login_name} ${role}</a></li>
-									<li><a href="<%=adminMemPath %>">Admin Page</a></li>
-									<li><a href="<%=uploadPath%>">Upload</a></li>
+									<li><a href="<%=adminMemPath %>">管理用户</a></li>
+									<li><a href="<%=uploadPath%>">上传语料</a></li>
 									<div class="navbar-form navbar-right">
 										<div class="form-group">
 											<form action="login2.do" method="get">
@@ -99,7 +96,7 @@
       <div class="jumbotron" style="text-align: center; padding-top: 50px; padding-bottom: 67px;">
       	<p><b>教育部哲学社会科学研究重大课题攻关项目“东亚国家语言中<br/>汉字词汇使用现状研究”中间成果</b></p>
         <h1><b>中日对译语料库</b></h1>
-        <form action="selectRegexWord.do" method="get" style="padding-right: 101px; padding-left: 101px; padding-top: 18px;">
+        <form name="myForm" action="selectRegexWord.do" method="get" onsubmit="return(validate());" style="padding-right: 101px; padding-left: 101px; padding-top: 18px;">
 			<div class="radio">
       			<label style="padding-right: 33px;"><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
       			<label><input type="radio" name="language" value="jp">使用日文检索</label>
@@ -115,17 +112,21 @@
       </c:if>
       <c:if test="${isSearch == true }">
        <div class="jumbotron" style="text-align: center; padding-top: 25px; padding-bottom: 25px;">
-          <form class="form-inline" style="float: left; padding-left: 30px" action="selectRegexWord.do" method="get">
+
+          <form name="myForm" onsubmit="return(validate());" class="form-inline" style="float: left; padding-left: 30px" action="selectRegexWord.do" method="get">
+
           	 <div class="radio">
           	 	<c:if test="${param.language == 'ch' }">
           	 	<label><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
 				<label><input type="radio" name="language" value="jp">使用日文检索</label>
 				</c:if>
+
                 <c:if test="${param.language == 'jp' }">
           	 	<label><input type="radio" name="language" value="ch" >使用中文检索</label>
 				<label><input type="radio" name="language" value="jp" checked="checked">使用日文检索</label>
 				</c:if>   
           	 </div>
+
           	 <div class="input-group">
           	 	<input type="text" name="keyword" class="form-control" style="padding-right: 107px" 
           	 	value="${fn:escapeXml(param.keyword) }"/>
@@ -134,6 +135,7 @@
         			style="width: 80px; ">检索</button>
       			</span>
           	 </div>
+
           </form>
           <c:if test="${login_status == null || login_status == false }">
 		      <button id="download" style="margin-left: 106px;" disabled="disabled"
@@ -179,7 +181,7 @@
         	
         	 <tbody>
           		<c:forEach var="jp_each" items="${jp_ori}">
-          			<tr>
+          			<tr onmousedown='return false;' onselectstart='return false;'>
 						<td class="col-md-6">${jp_each.jp_text }</td>
 						<td class="col-md-6">${jp_each.ct_text }</td>
 					</tr>
@@ -258,7 +260,7 @@
         	
         	<tbody>
           		<c:forEach var="ch_each" items="${ch_ori}">
-          			<tr>
+          			<tr onmousedown='return false;' onselectstart='return false;'>
 						<td class="col-md-6">${ch_each.ch_text }</td>
 						<td class="col-md-6">${ch_each.jt_text }</td>
 					</tr>
@@ -349,5 +351,36 @@
 	$('#download').click(function() {
 		alert("只有用户可以下载搜索结果");
 	});
+	
+	function validate()
+	{
+	 
+	   if( document.myForm.keyword.value == "" || document.myForm.keyword.value == " ")
+	   {
+	     alert( "Please enter the keywords." );
+	     document.myForm.keyword.focus() ;
+	     return false;
+	   }
+	   return( true );
+	}
+
+	function validateLogin()
+	{
+	 
+	   if( document.loginForm.username.value == "" )
+	   {
+	     alert( "Please enter the username." );
+	     document.loginForm.username.focus() ;
+	     return false;
+	   }
+	   if( document.loginForm.password.value == "" )
+	   {
+	     alert( "Please enter the password." );
+	     document.loginForm.password.focus() ;
+	     return false;
+	   }
+
+	   return( true );
+	}
 </script>
 </html>

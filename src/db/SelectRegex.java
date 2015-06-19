@@ -26,12 +26,14 @@ public class SelectRegex {
 	private List<Integer> jpOriPageList = new ArrayList<Integer>();
 	private List<Integer> chOriPageList = new ArrayList<Integer>();
 	private boolean hasLimit = true;
+	private boolean isLogin = false;
 	
 	public SelectRegex(String keyword, String language, boolean status) {
 		conn = new NewConnect().getConnection();
 		this.language = language;
 		this.keywords = processKey(keyword);
 		this.isSearch = true;
+		this.isLogin = status;
 			}
 	
 	public void selectContent() {

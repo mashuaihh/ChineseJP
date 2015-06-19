@@ -24,8 +24,10 @@ public class SelectUser {
 				each.setUsername(rs.getString("name"));
 				each.setEmail(rs.getString("email"));
 				each.setRole(rs.getString("role"));
-				each.setNote(rs.getString("note"));
 				each.setActivated(rs.getInt("activated"));
+				each.setInstitute(rs.getString("institute"));
+				String memo = rs.getString("memo");
+				each.setMemo(memo);
 				this.userList.add(each);
 			}
 			conn.close();

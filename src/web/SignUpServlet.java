@@ -30,7 +30,6 @@ public class SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -42,17 +41,21 @@ public class SignUpServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String psw = request.getParameter("psw");
 		String email = request.getParameter("email");
+		String institute = request.getParameter("institute");
+		String memo = request.getParameter("memo");
 		
 		String hashed = BCrypt.hashpw(psw, BCrypt.gensalt());
 		
 		InsertUser uu = new InsertUser();
 		uu.setActivated(0);
 		uu.setEmail(email);
+		uu.setInstitute(institute);
+		uu.setMemo(memo);
 		uu.setPsw(hashed);
 		uu.setUsername(username);
 		uu.updateUser();
 		
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("AfterSignUp.jsp");
 	}
 
 }
