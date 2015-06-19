@@ -74,6 +74,7 @@
 								<ul class="nav navbar-nav">
 									<li><a>${login_name} ${role}</a></li>
 									<li><a href="<%=adminMemPath %>">管理用户</a></li>
+									<li><a href="<%=centerPath%>">个人中心</a></li>
 									<li><a href="<%=uploadPath%>">上传语料</a></li>
 									<div class="navbar-form navbar-right">
 										<div class="form-group">
@@ -94,8 +95,8 @@
 	<div class="container" style="padding-top: 70px">
 	 <c:if test="${isSearch == null || isSearch == false }">
       <div class="jumbotron" style="text-align: center; padding-top: 50px; padding-bottom: 67px;">
-      	<p><b>教育部哲学社会科学研究重大课题攻关项目“东亚国家语言中<br/>汉字词汇使用现状研究”中间成果</b></p>
-        <h1><b>中日对译语料库</b></h1>
+      	<p><b>教育部哲学社会科学研究重大课题攻关项目<br/>“东亚国家语言中汉字词汇使用现状研究”成果</b></p>
+        <h1><b>中日平行语料库</b></h1>
         <form name="myForm" action="selectRegexWord.do" method="get" onsubmit="return(validate());" style="padding-right: 101px; padding-left: 101px; padding-top: 18px;">
 			<div class="radio">
       			<label style="padding-right: 33px;"><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
@@ -156,6 +157,8 @@
     </div> <!-- /container -->
     
 
+<!-- if sth has been searched
+ -->
 	<c:if test="${isSearch == true }">
 	<div class="container">
       <div class="jumbotron"  id="table"  style="padding-top: 1px;">
@@ -179,13 +182,65 @@
 	          		</tr>
         	</thead>
         	
+        	
+        	
         	 <tbody>
-          		<c:forEach var="jp_each" items="${jp_ori}">
+        	 
+        	 
+        	 <c:choose>
+        		<c:when test="${login_status==null || login_status == false || role == 'member'}">
+        			<c:forEach var="jp_each" items="${jp_ori}">
+        				<tr onmousedown='return false;' onselectstart='return false;'>
+        					<td class="col-md-6">
+        						${jp_each.jp_text }
+        					</td>
+        					
+        					<td class="col-md-6">
+        						${jp_each.ct_text }
+        					</td>
+        				</tr>
+        			</c:forEach>
+        		</c:when>
+        		
+        		<c:when test="${login_status == true && role == 'admin' }">
+        			<c:forEach var="jp_each" items="${jp_ori}">
           			<tr onmousedown='return false;' onselectstart='return false;'>
-						<td class="col-md-6">${jp_each.jp_text }</td>
-						<td class="col-md-6">${jp_each.ct_text }</td>
+						<td class="col-md-6">
+							<div class="col-md-10">			
+								${jp_each.jp_text }
+							</div>
+
+						<form action="UpdateWordInfo.do" method="post">
+							<input type="hidden" name="ori" value="jp_ori" />
+							<input type="hidden" name="jp_id" value="${jp_each.jp_id }" />
+							<div class="col-md-2">			
+								<input class="btn btn-sm  btn-primary" type="submit" value="更新" />
+							</div>
+						</form>
+
+						</td>
+						
+						
+						<td class="col-md-6">
+							<div class="col-md-10">			
+								${jp_each.ct_text }
+							</div>
+
+						<form action="UpdateWordInfo.do" method="post">
+							<input type="hidden" name="ori" value="jp_ori" />
+							<input type="hidden" name="ch_id" value="${jp_each.ct_id }" />
+							<div class="col-md-2">			
+								<input class="btn btn-sm  btn-primary" type="submit" value="更新" />
+							</div>
+						</form>
+
+						</td>
 					</tr>
 				</c:forEach>
+        		</c:when>
+        	</c:choose>
+        	 
+				
         	 </tbody>
       	    </table>
       	    <p>共${jpOriPageNum }页</p>
@@ -259,12 +314,65 @@
         	</thead>
         	
         	<tbody>
-          		<c:forEach var="ch_each" items="${ch_ori}">
+        	<c:choose>
+        		<c:when test="${login_status==null || login_status == false || role == 'member'}">
+        			<c:forEach var="ch_each" items="${ch_ori}">
+        			<tr onmousedown='return false;' onselectstart='return false;'>
+        				<td class="col-md-6">
+        					${ch_each.ch_text }
+        				</td>
+        				
+        				<td class="col-md-6">
+        					${ch_each.jt_text }
+        				</td>
+        			</tr>
+        			</c:forEach>
+        		</c:when>
+        			
+        		<c:when test="${login_status == true && role == 'admin' }">
+          			<c:forEach var="ch_each" items="${ch_ori}">
+          			
           			<tr onmousedown='return false;' onselectstart='return false;'>
-						<td class="col-md-6">${ch_each.ch_text }</td>
-						<td class="col-md-6">${ch_each.jt_text }</td>
+						<td class="col-md-6">
+							<div class="col-md-10">
+								${ch_each.ch_text }
+							</div>
+							
+							<form action="UpdateWordInfo.do" method="post">
+								<input type="hidden" name="ori" value="ch_ori" />
+								<input type="hidden" name="ch_id" value="${ch_each.ch_id }" />
+							
+								<div class="col-md-2">
+									<input class="btn btn-sm btn-primary"  type="submit" value="更新" />
+								</div>
+							</form>
+											
+						</td>
+						
+						
+						
+						<td class="col-md-6">
+							<div class="col-md-10">
+								${ch_each.jt_text }
+							</div>
+							
+							<form action="UpdateWordInfo.do" method="post">
+								<input type="hidden" name="ori" value="ch_ori" />
+								<input type="hidden" name="jp_id" value="${ch_each.jt_id }" />
+								
+								<div class="col-md-2">
+									<input class="btn btn-sm btn-primary"  type="submit" value="更新" />
+								</div>
+							</form>
+						
+						</td>
 					</tr>
 				</c:forEach>
+				</c:when>
+			</c:choose>
+				
+				
+				
         	</tbody>
       	</table>
       	    <p>共${chOriPageNum }页</p>

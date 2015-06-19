@@ -74,8 +74,8 @@
 
 	<div class="container" style="padding-top: 70px">
       <div class="jumbotron" style="text-align: center; padding-top: 50px; padding-bottom: 67px;">
-      	<p><b>教育部哲学社会科学研究重大课题攻关项目“东亚国家语言中<br/>汉字词汇使用现状研究”中间成果</b></p>
-        <h1><b>中日对译语料库</b></h1>
+      	<p><b>教育部哲学社会科学研究重大课题攻关项目<br/>“东亚国家语言中汉字词汇使用现状研究”成果</b></p>
+        <h1><b>中日平行语料库</b></h1>
         <br/>
         <br/>
         <br/>

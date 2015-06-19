@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>alsjkd;vl</title>
+<title>个人中心</title>
 <script src="../css/jquery-1.11.2.min.js"></script>
 <script src="../css/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
@@ -65,6 +65,7 @@
 								<ul class="nav navbar-nav">
 									<li><a>${login_name} ${role}</a></li>
 									<li><a href="../admin/member_admin.jsp">用户管理</a></li>
+									<li class="active"><a href="#">个人中心</a></li>
 									<li><a href="add_text_mem.jsp">上传语料</a></li>
 									<div class="navbar-form navbar-right">
 										<div class="form-group">

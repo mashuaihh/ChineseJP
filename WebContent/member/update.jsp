@@ -13,10 +13,10 @@
 	
 		<form action="UpdateWord.do" method="post">
 
-			<input type="text" id="ori" name="ori" value="${fn:escapeXml(textBean.ori) }" />
-			<input type="text" id="updateLan" name="updateLan" value="${fn:escapeXml(textBean.updateLan) }" />
-			<input type="text" name="updateTable" value="${fn:escapeXml(textBean.updateTable) }" />
-			<input type="text" name="text_id" value="${fn:escapeXml(textBean.text_id) }" />
+			<input type="hidden" id="ori" name="ori" value="${fn:escapeXml(textBean.ori) }" />
+			<input type="hidden" id="updateLan" name="updateLan" value="${fn:escapeXml(textBean.updateLan) }" />
+			<input type="hidden" name="updateTable" value="${fn:escapeXml(textBean.updateTable) }" />
+			<input type="hidden" name="text_id" value="${fn:escapeXml(textBean.text_id) }" />
 			<label for="text">文本:</label>
 			<br>
 			<textarea id="text" name="text_content" rows="6" cols="50" style="resize:none"><c:out value="${textBean.text_content }" />

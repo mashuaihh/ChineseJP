@@ -65,6 +65,7 @@
 								<ul class="nav navbar-nav">
 									<li><a>${login_name} ${role}</a></li>
 									<li class="active"><a href="#">管理用户</a></li>
+									<li><a href="../member/textMember.jsp">个人中心</a></li>
 									<li><a href="../member/add_text_mem.jsp">上传语料</a></li>
 									<div class="navbar-form navbar-right">
 										<div class="form-group">
