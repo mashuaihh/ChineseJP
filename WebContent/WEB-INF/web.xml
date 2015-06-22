@@ -128,6 +128,18 @@
   </servlet-mapping>
   <servlet>
     <description>
+  		Invoked in admin/member_admin.jsp.
+  		The servlet get the backup file from disk and response it to user.
+  	</description>
+    <servlet-name>downloadBackup</servlet-name>
+    <servlet-class>web.DownloadBackupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>downloadBackup</servlet-name>
+    <url-pattern>/downloadBackup.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>
     	For downloading the generated Excel file.
     	Used in index.jsp
   	</description>

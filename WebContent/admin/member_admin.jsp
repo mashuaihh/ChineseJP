@@ -85,6 +85,9 @@
 <div class="container" style="padding-top: 70px">
 
 	<div class="jumbotron">
+		<form action="../downloadBackup.do" method="get">
+			<input type="submit" name="submit" value="backup" class="btn btn-info" />
+		</form>
 		   <table class="table table-hover ">
        		 <thead>
 	          		<tr>
