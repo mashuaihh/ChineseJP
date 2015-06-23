@@ -122,14 +122,14 @@ public class DownloadExcel {
 		String language = "ch";
 		Boolean status = true;
 		System.out.println("sr before");
-		SelectRegex sr = new SelectRegex(keyword, language, status);
-		System.out.println("sr after");
-		sr.selectAllContent();
-		System.out.println("after select");
-		ArrayList<JpOriBean> jpOriList = sr.getJpOriList();
-		ArrayList<ChOriBean> chOriList = sr.getChOriList();
-		
-		System.out.println("before downloadExcel");
-		DownloadExcel excel = new DownloadExcel(jpOriList, chOriList);
+//		SelectRegex sr = new SelectRegex(keyword, language, status);
+//		System.out.println("sr after");
+//		sr.selectAllContent();
+//		System.out.println("after select");
+//		ArrayList<JpOriBean> jpOriList = sr.getJpOriList();
+//		ArrayList<ChOriBean> chOriList = sr.getChOriList();
+//		
+//		System.out.println("before downloadExcel");
+//		DownloadExcel excel = new DownloadExcel(jpOriList, chOriList);
 	}
 }

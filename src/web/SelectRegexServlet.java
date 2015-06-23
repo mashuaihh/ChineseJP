@@ -38,6 +38,11 @@ public class SelectRegexServlet extends HttpServlet {
 		String language = request.getParameter("language");
 		String jpOriIndex = request.getParameter("jpOriIndex");
 		String chOriIndex = request.getParameter("chOriIndex");
+		boolean regex = false;
+		String isRegex = request.getParameter("isRegex");
+		if (isRegex != null) {
+			regex = true;
+		}
 		Integer jpIndex;
 		Integer chIndex;
 		//language = "ch" or "jp"
@@ -46,7 +51,7 @@ public class SelectRegexServlet extends HttpServlet {
 		if (status == null) 
 			status = false;
 
-		SelectRegex sr = new SelectRegex(keyword, language, status);
+		SelectRegex sr = new SelectRegex(keyword, language, status, regex);
 		Pagination pg = new Pagination();
 
 		if (jpOriIndex != null && chOriIndex != null) {
@@ -61,23 +66,6 @@ public class SelectRegexServlet extends HttpServlet {
 		 chIndex = Integer.parseInt(chOriIndex);
 		 
 		} 
-//		else if (jpOriIndex != null && chOriIndex == null) {
-//
-//			sr.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
-//			pg.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
-//			
-//			jpIndex = Integer.parseInt(jpOriIndex);
-//			chIndex = 1;
-//
-//		} else if (jpOriIndex == null && chOriIndex != null) {
-//
-//			sr.setChOriIndex(Integer.parseInt(chOriIndex) - 1);
-//			pg.setChOriIndex(Integer.parseInt(chOriIndex));
-//			
-//			chIndex = Integer.parseInt(chOriIndex);
-//			jpIndex = 1;
-//
-//		} 
 		else {
 		// do nothing	
 			chIndex = 1;
@@ -118,45 +106,7 @@ public class SelectRegexServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String keyword = request.getParameter("keyword");
-		String language = request.getParameter("language");
-		String jpOriIndex = request.getParameter("jpOriIndex");
-		String chOriIndex = request.getParameter("chOriIndex");
-		Integer jpIndex = Integer.parseInt(jpOriIndex) + 1;
-		Integer chIndex = Integer.parseInt(chOriIndex) + 1;
-		//language = "ch" or "jp"
-		HttpSession session = request.getSession();
-		Boolean status = (Boolean) session.getAttribute("login_status");
-		if (status == null) 
-			status = false;
-		
-		SelectRegex sr = new SelectRegex(keyword, language, status);
 
-		if (jpOriIndex != null && chOriIndex != null) {
-         sr.setChOriIndex(Integer.parseInt(jpOriIndex) - 1);
-		 sr.setJpOriIndex(Integer.parseInt(chOriIndex) - 1);
-		} else if (jpOriIndex != null && chOriIndex == null) {
-			sr.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
-		} else if (jpOriIndex == null && chOriIndex != null) {
-			sr.setChOriIndex(Integer.parseInt(chOriIndex) - 1);
-		} else {
-		// do nothing	
-		}
-		sr.selectContent();
-		
-		request.setAttribute("isSearch", sr.getIsSearch());
-		request.setAttribute("jp_ori", sr.getJpOriList());
-		request.setAttribute("ch_ori", sr.getChOriList());
-		request.setAttribute("jpOriPageNum", sr.getJpOriPageNum());
-		request.setAttribute("chOriPageNum", sr.getChOriPageNum());
-		
-		request.setAttribute("jpCurrentIndex", jpIndex);
-		request.setAttribute("chCurrentIndex", chIndex);
-		
-
-		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-		view.forward(request, response);
 	}
 
 }

@@ -44,13 +44,18 @@ public class DownloadExcelServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String keyword = request.getParameter("keyword");
 		String language = request.getParameter("language");
+		boolean regex = false;
+		String isRegex = request.getParameter("isRegex");
+		if (isRegex != null) {
+			regex = true;
+		}
 		//language = "ch" or "jp"
 		HttpSession session = request.getSession();
 		Boolean status = (Boolean) session.getAttribute("login_status");
 		if (status == null) 
 			status = false;
 
-		SelectRegex sr = new SelectRegex(keyword, language, status);
+		SelectRegex sr = new SelectRegex(keyword, language, status, regex);
 		sr.selectAllContent();
 		ArrayList<JpOriBean> jpOriList = sr.getJpOriList();
 		ArrayList<ChOriBean> chOriList = sr.getChOriList();

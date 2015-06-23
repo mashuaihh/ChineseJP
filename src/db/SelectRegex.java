@@ -15,6 +15,7 @@ public class SelectRegex {
 	private PreparedStatement pstmt = null;
 	private String language = null;
 	private String[] keywords = null;
+	private String oriKeyword = null;
 	private ArrayList<JpOriBean>  jpOriList = new ArrayList<JpOriBean>();
 	private ArrayList<ChOriBean>  chOriList = new ArrayList<ChOriBean>();
 	private Boolean isSearch = false;
@@ -27,13 +28,16 @@ public class SelectRegex {
 	private List<Integer> chOriPageList = new ArrayList<Integer>();
 	private boolean hasLimit = true;
 	private boolean isLogin = false;
+	private boolean isRegex = false;
 	
-	public SelectRegex(String keyword, String language, boolean status) {
+	public SelectRegex(String keyword, String language, boolean status, boolean isRegex) {
 		conn = new NewConnect().getConnection();
 		this.language = language;
+		this.oriKeyword = keyword;
 		this.keywords = processKey(keyword);
 		this.isSearch = true;
 		this.isLogin = status;
+		this.isRegex = isRegex;
 			}
 	
 	public void selectContent() {
@@ -96,33 +100,60 @@ public class SelectRegex {
 		return sql;
 	}
 	
+	/**
+	 * 
+	 * @param baseSql
+	 * @param column
+	 * @return
+	 */
+	private String getSql(String baseSql, String column, String ori) {
+		this.pstmt = null;
+		String sql;
+		if (this.isRegex == true) {
+			sql = baseSql + column + " REGEXP '" + this.oriKeyword + "'";
+		} else {
+			sql = processSql(baseSql, column);
+		}
+
+		if (this.hasLimit) {
+			if (ori.equals("ch")) {
+				sql += " ORDER BY ch.ch_id LIMIT " + this.getChOriOffset();
+			} else {
+				sql += " ORDER BY jp.jp_id LIMIT " + this.getJpOriOffset();
+			}
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if (this.isRegex == false) {
+				for (int i = 0; i < this.keywords.length; i++) {
+					pstmt.setString(i+1, this.keywords[i]);	
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sql;
+	}
+	
 	private void selectJpOri() {
 		//ch ÔòËÑË÷ ch_transÖÐct_text (using LIKE)
 		//jp       jp_ori jp_text (using Like)
+		String ori = "jp";
 		try {
 			if (this.language.equals("jp")) {
 				String column = "jp.jp_text";
 				String sql1 = "SELECT * FROM jp_ori AS jp, ch_trans AS ch " + 
 						"WHERE jp.jp_id = ch.jp_num AND ";
-				String sql = processSql(sql1, column);
-				if (this.hasLimit)
-					sql = sql + " ORDER BY jp.jp_id LIMIT " + this.getJpOriOffset();
-				pstmt = conn.prepareStatement(sql);
-				for (int i = 0; i < this.keywords.length; i++) {
-					pstmt.setString(i+1, this.keywords[i]);	
-				}
+
+				this.getSql(sql1, column, ori);
 
 			} else { //language is "ch"
 				String column = "ch.ct_text";
 				String sql2 = "SELECT * FROM jp_ori AS jp, ch_trans AS ch " + 
 						"WHERE jp.jp_id = ch.jp_num AND ";
-				String sql = processSql(sql2, column);
-				if (this.hasLimit)
-					sql = sql + " ORDER BY jp.jp_id LIMIT " + this.getJpOriOffset();
-				pstmt = conn.prepareStatement(sql);
-				for (int i = 0; i < this.keywords.length; i++) {
-					pstmt.setString(i+1, this.keywords[i]);
-				}
+
+				this.getSql(sql2, column, ori);
 			}
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -161,29 +192,20 @@ public class SelectRegex {
 	
 
 	private void selectChOri() {
+		String ori = "ch";
 		try {
 			if (this.language.equals("jp")) {
 				String column = "jp.jt_text";
 				String sql1 = "SELECT * FROM ch_ori AS ch, jp_trans AS jp " + 
 						"WHERE ch.ch_id = jp.ch_num AND ";
-				String sql = processSql(sql1, column);
-				if (this.hasLimit)
-					sql = sql + " ORDER BY ch.ch_id LIMIT " + this.getChOriOffset();
-				pstmt = conn.prepareStatement(sql);
-				for (int i = 0; i < this.keywords.length; i++) {
-					pstmt.setString(i+1, this.keywords[i]);	
-				}
+
+				this.getSql(sql1, column, ori);
 			} else {
 				String column = "ch.ch_text";
 				String sql2 = "SELECT * FROM ch_ori AS ch, jp_trans AS jp " + 
 						"WHERE ch.ch_id = jp.ch_num AND ";
-				String sql = processSql(sql2, column);
-				if (this.hasLimit)
-					sql = sql + " ORDER BY ch.ch_id LIMIT " + this.getChOriOffset();
-				pstmt = conn.prepareStatement(sql);
-				for (int i = 0; i < this.keywords.length; i++) {
-					pstmt.setString(i+1, this.keywords[i]);	
-				}
+
+				this.getSql(sql2, column, ori);
 			}
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -220,25 +242,18 @@ public class SelectRegex {
 	}
 	
 	private void countChOriPageNum() {
+		String ori = "ch";
 		try {
 			if (this.language.equals("jp")) {
 				String column = "jp.jt_text";
 				String sql1 = "SELECT COUNT(*) FROM ch_ori AS ch, jp_trans AS jp " + 
 						"WHERE ch.ch_id = jp.ch_num AND ";
-				String sql = processSql(sql1, column);
-				pstmt = conn.prepareStatement(sql);
-				for (int i = 0; i < this.keywords.length; i++) {
-					pstmt.setString(i+1, this.keywords[i]);	
-				}
+				this.getSql(sql1, column, ori);
 			} else {
 				String column = "ch.ch_text";
 				String sql2 = "SELECT COUNT(*) FROM ch_ori AS ch, jp_trans AS jp " + 
 						"WHERE ch.ch_id = jp.ch_num AND ";
-				String sql = processSql(sql2, column);
-				pstmt = conn.prepareStatement(sql);
-				for (int i = 0; i < this.keywords.length; i++) {
-					pstmt.setString(i+1, this.keywords[i]);	
-				}
+				this.getSql(sql2, column, ori);
 			}
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -255,26 +270,20 @@ public class SelectRegex {
 	}
 	
 	private void countJpOriPageNum() {
+		String ori = "jp";
 		try {
 			if (this.language.equals("jp")) {
 				String column = "jp.jp_text";
 				String sql1 = "SELECT COUNT(*) FROM jp_ori AS jp, ch_trans AS ch " + 
 						"WHERE jp.jp_id = ch.jp_num AND ";
-				String sql = processSql(sql1, column);
-				pstmt = conn.prepareStatement(sql);
-				for (int i = 0; i < this.keywords.length; i++) {
-					pstmt.setString(i+1, this.keywords[i]);	
-				}
 				
+				this.getSql(sql1, column, ori);
 			} else { //language is "ch"
 				String column = "ch.ct_text";
 				String sql2 = "SELECT COUNT(*) FROM jp_ori AS jp, ch_trans AS ch " + 
 						"WHERE jp.jp_id = ch.jp_num AND ";
-				String sql = processSql(sql2, column);
-				pstmt = conn.prepareStatement(sql);
-				for (int i = 0; i < this.keywords.length; i++) {
-					pstmt.setString(i+1, this.keywords[i]);
-				}
+
+				this.getSql(sql2, column, ori);
 			}
 			
 			ResultSet rs = pstmt.executeQuery();

@@ -102,6 +102,9 @@
       			<label style="padding-right: 33px;"><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
       			<label><input type="radio" name="language" value="jp">使用日文检索</label>
     		</div>
+    		<div class="checkbox">
+    			<label><input type="checkbox" name="isRegex" value="regex" />使用正则表达式检索</label>
+    		</div>
 			<div class="input-group">
       			<input type="text" name="keyword" class="form-control" placeholder="输入一个或多个关键词" />
       			<span class="input-group-btn">
@@ -126,6 +129,17 @@
           	 	<label><input type="radio" name="language" value="ch" >使用中文检索</label>
 				<label><input type="radio" name="language" value="jp" checked="checked">使用日文检索</label>
 				</c:if>   
+
+			<div class="checkbox">
+				<c:if test="${param.isRegex == 'regex' }">
+    				<label style="padding-left: 12px"><input type="checkbox" name="isRegex" value="regex" checked="checked"/>使用正则表达式检索</label>
+    			</c:if>
+
+				<c:if test="${param.isRegex == null }">
+    				<label style="padding-left: 12px"><input type="checkbox" name="isRegex" value="regex" />使用正则表达式检索</label>
+    			</c:if>
+    		</div>
+
           	 </div>
 
           	 <div class="input-group">
