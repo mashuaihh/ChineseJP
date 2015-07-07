@@ -6,8 +6,8 @@ import java.util.List;
 public class Pagination {
 	private List<Integer> jpOriPageList = new ArrayList<Integer>();
 	private List<Integer> chOriPageList = new ArrayList<Integer>();
-	private int jpOriIndex = 0;
-	private int chOriIndex = 0;
+	private int jpOriDbIndex = 0;
+	private int chOriDbIndex = 0;
 	private int jpOriPagesSum = 0;
 	private int chOriPagesSum = 0;
 	
@@ -16,8 +16,8 @@ public class Pagination {
 	}
 	
 	public void process() {
-		this.jpOriPageList = getListNum(this.jpOriIndex, this.jpOriPagesSum);
-		this.chOriPageList = getListNum(this.chOriIndex, this.chOriPagesSum);
+		this.jpOriPageList = getListNum(this.jpOriDbIndex, this.jpOriPagesSum);
+		this.chOriPageList = getListNum(this.chOriDbIndex, this.chOriPagesSum);
 	}
 	
 	private List<Integer> getListNum(int currentIndex, int pagesSum) {
@@ -103,12 +103,12 @@ public class Pagination {
 		return this.chOriPageList;
 	}
 
-	public void setJpOriIndex(int i) {
-		this.jpOriIndex = i;
+	public void setJpOriDbIndex(int i) {
+		this.jpOriDbIndex = i;
 	}
 
-	public void setChOriIndex(int i) {
-		this.chOriIndex = i;
+	public void setChOriDbIndex(int i) {
+		this.chOriDbIndex = i;
 	}
 	
 	public void setJpOriPagesSum(int i) {

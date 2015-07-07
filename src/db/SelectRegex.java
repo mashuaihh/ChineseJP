@@ -24,8 +24,6 @@ public class SelectRegex {
 	private int jpOriIndex = 0;
 	private int chOriIndex = 0;
 	private int span = 10;
-	private List<Integer> jpOriPageList = new ArrayList<Integer>();
-	private List<Integer> chOriPageList = new ArrayList<Integer>();
 	private boolean hasLimit = true;
 	private boolean isLogin = false;
 	private boolean isRegex = false;
@@ -110,11 +108,13 @@ public class SelectRegex {
 		this.pstmt = null;
 		String sql;
 		if (this.isRegex == true) {
-			sql = baseSql + column + " REGEXP '" + this.oriKeyword + "'";
+//			sql = baseSql + column + " REGEXP '" + this.oriKeyword + "'";
+//			sql = baseSql + column + " REGEXP ?";
+			sql = baseSql + " PREG_RLIKE(?, " + column + ") = 1";
 		} else {
 			sql = processSql(baseSql, column);
 		}
-
+		
 		if (this.hasLimit) {
 			if (ori.equals("ch")) {
 				sql += " ORDER BY ch.ch_id LIMIT " + this.getChOriOffset();
@@ -122,13 +122,14 @@ public class SelectRegex {
 				sql += " ORDER BY jp.jp_id LIMIT " + this.getJpOriOffset();
 			}
 		}
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			if (this.isRegex == false) {
 				for (int i = 0; i < this.keywords.length; i++) {
 					pstmt.setString(i+1, this.keywords[i]);	
 				}
+			} else {
+				pstmt.setString(1, this.oriKeyword);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -136,6 +137,39 @@ public class SelectRegex {
 		return sql;
 	}
 	
+	/**
+	 * 
+	 * @param baseSql
+	 * @param column
+	 * @param boolean for identifying count select
+	 * @return
+	 */
+	private String getSql(String baseSql, String column, String ori, boolean a) {
+		this.pstmt = null;
+		String sql;
+		if (this.isRegex == true) {
+//			sql = baseSql + column + " REGEXP '" + this.oriKeyword + "'";
+//			sql = baseSql + column + " REGEXP ?";
+			sql = baseSql + " PREG_RLIKE(?, " + column + ") = 1";
+		} else {
+			sql = processSql(baseSql, column);
+		}
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			if (this.isRegex == false) {
+				for (int i = 0; i < this.keywords.length; i++) {
+					pstmt.setString(i+1, this.keywords[i]);	
+				}
+			} else {
+				pstmt.setString(1, this.oriKeyword);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sql;
+	}
+
 	private void selectJpOri() {
 		//ch ÔòËÑË÷ ch_transÖÐct_text (using LIKE)
 		//jp       jp_ori jp_text (using Like)
@@ -248,12 +282,12 @@ public class SelectRegex {
 				String column = "jp.jt_text";
 				String sql1 = "SELECT COUNT(*) FROM ch_ori AS ch, jp_trans AS jp " + 
 						"WHERE ch.ch_id = jp.ch_num AND ";
-				this.getSql(sql1, column, ori);
+				this.getSql(sql1, column, ori, true);
 			} else {
 				String column = "ch.ch_text";
 				String sql2 = "SELECT COUNT(*) FROM ch_ori AS ch, jp_trans AS jp " + 
 						"WHERE ch.ch_id = jp.ch_num AND ";
-				this.getSql(sql2, column, ori);
+				this.getSql(sql2, column, ori, true);
 			}
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -277,13 +311,13 @@ public class SelectRegex {
 				String sql1 = "SELECT COUNT(*) FROM jp_ori AS jp, ch_trans AS ch " + 
 						"WHERE jp.jp_id = ch.jp_num AND ";
 				
-				this.getSql(sql1, column, ori);
+				this.getSql(sql1, column, ori, true);
 			} else { //language is "ch"
 				String column = "ch.ct_text";
 				String sql2 = "SELECT COUNT(*) FROM jp_ori AS jp, ch_trans AS ch " + 
 						"WHERE jp.jp_id = ch.jp_num AND ";
 
-				this.getSql(sql2, column, ori);
+				this.getSql(sql2, column, ori, true);
 			}
 			
 			ResultSet rs = pstmt.executeQuery();

@@ -43,7 +43,7 @@
         			<ul class="nav navbar-nav">
 			            <li><a href="../index.jsp">主页</a></li>
 			            <li><a href="../about.jsp">关于</a></li>
-			            <li class="active"><a href="#">联系我们</a></li>
+			            <li><a href="#">联系我们</a></li>
 			        </ul>
         			
         			<div class="navbar-right">

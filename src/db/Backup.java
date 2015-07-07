@@ -25,7 +25,7 @@ public class Backup {
 	public boolean executeBackup() {
 //		String cmd = "cmd.exe /c mysqldump -u " + newConn.getUser() + " -p" + newConn.getPassword()
 		String cmd = "cmd.exe /c mysqldump -u " + newConn.getUser() + " -p" + newConn.getPassword()
-				+ " chjp " + "> " + "d:\\" + Backup.fileName +".sql";
+				+ " chjp " + "> " + "e:\\" + Backup.fileName +".sql";
 //				+ " chjp";
 		try {
 
@@ -49,7 +49,7 @@ public class Backup {
 	}
 	
 	public InputStream getBackupStream() {
-		File file = new File("d:\\" + Backup.fileName + ".sql");
+		File file = new File("e:\\" + Backup.fileName + ".sql");
 		try {
 			InputStream input = new FileInputStream(file);
 			return input;

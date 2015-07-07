@@ -39,10 +39,10 @@ public class SelectRegexServlet extends HttpServlet {
 		String jpOriIndex = request.getParameter("jpOriIndex");
 		String chOriIndex = request.getParameter("chOriIndex");
 		boolean regex = false;
-		String isRegex = request.getParameter("isRegex");
-		if (isRegex != null) {
-			regex = true;
-		}
+//		String isRegex = request.getParameter("isRegex");
+//		if (isRegex != null) {
+//			regex = true;
+//		}
 		Integer jpIndex;
 		Integer chIndex;
 		//language = "ch" or "jp"
@@ -59,8 +59,8 @@ public class SelectRegexServlet extends HttpServlet {
          sr.setChOriIndex(Integer.parseInt(chOriIndex) - 1);
 		 sr.setJpOriIndex(Integer.parseInt(jpOriIndex) - 1);
 		 
-		 pg.setChOriIndex(Integer.parseInt(chOriIndex));
-		 pg.setJpOriIndex(Integer.parseInt(jpOriIndex));
+		 pg.setChOriDbIndex(Integer.parseInt(chOriIndex));
+		 pg.setJpOriDbIndex(Integer.parseInt(jpOriIndex));
 		 
 		 jpIndex = Integer.parseInt(jpOriIndex);
 		 chIndex = Integer.parseInt(chOriIndex);
@@ -71,6 +71,7 @@ public class SelectRegexServlet extends HttpServlet {
 			chIndex = 1;
 			jpIndex = 1;
 		}
+
 		sr.selectContent();
 
 		pg.setChOriPagesSum(sr.getChOriPageNum());
@@ -83,6 +84,7 @@ public class SelectRegexServlet extends HttpServlet {
 		request.setAttribute("jpOriPageNum", sr.getJpOriPageNum());
 		request.setAttribute("chOriPageNum", sr.getChOriPageNum());
 		
+		// 1-10, 11-20
 		request.setAttribute("jpOriPagesList", pg.getJpOriPageList());
 		request.setAttribute("chOriPagesList", pg.getChOriPageList());
 

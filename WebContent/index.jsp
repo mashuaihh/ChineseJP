@@ -102,9 +102,15 @@
       			<label style="padding-right: 33px;"><input type="radio" name="language" value="ch" checked="checked">使用中文检索</label>
       			<label><input type="radio" name="language" value="jp">使用日文检索</label>
     		</div>
-    		<div class="checkbox">
+    		
+    
+    <!--  regex 
+   		    <div class="checkbox">
     			<label><input type="checkbox" name="isRegex" value="regex" />使用正则表达式检索</label>
     		</div>
+     -->
+     
+     
 			<div class="input-group">
       			<input type="text" name="keyword" class="form-control" placeholder="输入一个或多个关键词" />
       			<span class="input-group-btn">
@@ -265,24 +271,31 @@
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpPreviousIndex) }" />
+    					<c:param name="isRegex" value="${fn:escapeXml(param.isRegex) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chCurrentIndex) }" />
     				</c:url>
+
+    			<!-- first '<' button -->
+    				<!--  jpCurrentIndex = 1 -->
     				<c:if test="${jpCurrentIndex == jpFirstIndex }">
     					<li class="disabled non-active">
     						<a href="#"><span aria-hidden="true">&laquo;</span></a>
     					</li>
     				</c:if>
+					
     				<c:if test="${jpCurrentIndex != jpFirstIndex }">
     					<li>
     						<a href="${url1 }"><span aria-hidden="true">&laquo;</span></a>
     					</li>
     				</c:if>
       	    	
+      	    	<!--  2, 3, ... last but not least -->
     			<c:forEach var="jpPage" items="${jpOriPagesList }">
     				<c:url var="url" value="/selectRegexWord.do">
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpPage) }" />
+    					<c:param name="isRegex" value="${fn:escapeXml(param.isRegex) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chCurrentIndex) }" />
     				</c:url>
 					
@@ -298,9 +311,12 @@
     				</c:if>
     			</c:forEach>
     			
+    			
+    			<!--  last '>' index -->	
     				<c:url var="url2" value="/selectRegexWord.do">
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="isRegex" value="${fn:escapeXml(param.isRegex) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpNextIndex) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chCurrentIndex) }" />
     				</c:url>
@@ -395,6 +411,7 @@
       	    	<ul class="pagination">
       	    		<c:url var="url1" value="/selectRegexWord.do">
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
+    					<c:param name="isRegex" value="${fn:escapeXml(param.isRegex) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chPreviousIndex) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpCurrentIndex) }" />
@@ -414,6 +431,7 @@
     				<c:url var="url" value="/selectRegexWord.do">
 				    	<c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="isRegex" value="${fn:escapeXml(param.isRegex) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpCurrentIndex) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chPage) }" />
     				</c:url>
@@ -433,6 +451,7 @@
     				<c:url var="url2" value="/selectRegexWord.do">
     				  <c:param name="language" value="${fn:escapeXml(param.language) }" />
     					<c:param name="keyword" value="${fn:escapeXml(param.keyword) }" />
+    					<c:param name="isRegex" value="${fn:escapeXml(param.isRegex) }" />
     					<c:param name="chOriIndex" value="${fn:escapeXml(chNextIndex) }" />
     					<c:param name="jpOriIndex" value="${fn:escapeXml(jpCurrentIndex) }" />
     				</c:url>
