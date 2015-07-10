@@ -53,7 +53,7 @@
 									<li><a href="add_text_mem.jsp">上传语料</a></li>
 									<div class="navbar-form navbar-right">
 										<div class="form-group">
-											<form action="login2.do" method="get">
+											<form action="../login2.do" method="get">
 												<input class="btn btn-success" type="submit" name="submit" value="退出登陆" />
 											</form>
 										</div>

@@ -48,10 +48,13 @@ public class SelectRegexServlet extends HttpServlet {
 		//language = "ch" or "jp"
 		HttpSession session = request.getSession();
 		Boolean status = (Boolean) session.getAttribute("login_status");
-		if (status == null) 
+		Integer percent = (Integer) session.getAttribute("user_percent");
+		if (status == null) {
 			status = false;
+			percent = 0;
+		}
 
-		SelectRegex sr = new SelectRegex(keyword, language, status, regex);
+		SelectRegex sr = new SelectRegex(keyword, language, status, regex, percent);
 		Pagination pg = new Pagination();
 
 		if (jpOriIndex != null && chOriIndex != null) {

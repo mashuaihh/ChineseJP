@@ -94,8 +94,9 @@
 	            			<th>用户名</th>
 	            			<th>Email</th>
 	            			<th>权限</th>
-	            			<th>institute</th>
-	            			<th>memo</th>
+	            			<th>单位或机构</th>
+	            			<th>备注</th>
+	            			<th>数据库访问比例</th>
 	            			<th></th>
 	          		</tr>
         	</thead>
@@ -108,8 +109,9 @@
 						<td class="col-md-2">${each.role}</td>
 						<td class="col-md-2">${each.institute}</td>
 						<td class="col-md-2">${each.memo}</td>
+						<td class="col-md-1">${each.percent}%</td>
 		<c:if test="${each.activated == 0}">
-			<td class="col-md-2">
+			<td class="col-md-1">
 			<form action="../activate.do" method="post">
 				<input type="hidden" name="user_id" value="${fn:escapeXml(each.user_id) }" />
 					<input type="submit" value="激活" />

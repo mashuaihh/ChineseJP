@@ -473,6 +473,13 @@
       </div>
     </div> <!-- /container -->
     </c:if>
+    
+
+    <footer class="footer">
+    	<div class="container">
+    		<p class="text-muted" style="text-align: center">北京外国语大学   日本学研究中心 </p>
+    	</div>
+    </footer>
 </body>
 <script type="text/javascript">
 	$('#show_jp').change(function() {

@@ -28,6 +28,7 @@ public class SelectUser {
 				each.setInstitute(rs.getString("institute"));
 				String memo = rs.getString("memo");
 				each.setMemo(memo);
+				each.setPercent(rs.getInt("percent"));
 				this.userList.add(each);
 			}
 			conn.close();

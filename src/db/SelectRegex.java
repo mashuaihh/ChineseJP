@@ -19,16 +19,32 @@ public class SelectRegex {
 	private ArrayList<JpOriBean>  jpOriList = new ArrayList<JpOriBean>();
 	private ArrayList<ChOriBean>  chOriList = new ArrayList<ChOriBean>();
 	private Boolean isSearch = false;
+	
+	private static int rowsReachableNotLogin = 100;
+
+	
+	//number of pages in pagination
 	private int jpOriPagesNum = 0;
 	private int chOriPagesNum = 0;
 	private int jpOriIndex = 0;
 	private int chOriIndex = 0;
+	
+	//number of rows in selected record
+	private int chOriRowNum = 0;
+	private int jpOriRowNum = 0;
+	
+	//percent of rows that are accessible to user
+	//10, 20, ...
+	private int percent = 20;
+	private int chAccessibleRows = 100;
+	private int jpAccessibleRows = 100;
+
 	private int span = 10;
 	private boolean hasLimit = true;
 	private boolean isLogin = false;
 	private boolean isRegex = false;
 	
-	public SelectRegex(String keyword, String language, boolean status, boolean isRegex) {
+	public SelectRegex(String keyword, String language, boolean status, boolean isRegex, int percent) {
 		conn = new NewConnect().getConnection();
 		this.language = language;
 		this.oriKeyword = keyword;
@@ -36,6 +52,7 @@ public class SelectRegex {
 		this.isSearch = true;
 		this.isLogin = status;
 		this.isRegex = isRegex;
+		this.percent = percent;
 			}
 	
 	public void selectContent() {
@@ -171,6 +188,8 @@ public class SelectRegex {
 	}
 
 	private void selectJpOri() {
+		this.countJpOriPageNum();
+
 		//ch ÔòËÑË÷ ch_transÖÐct_text (using LIKE)
 		//jp       jp_ori jp_text (using Like)
 		String ori = "jp";
@@ -192,7 +211,8 @@ public class SelectRegex {
 			
 			ResultSet rs = pstmt.executeQuery();
 			
-			while (rs.next()) {
+			int i = 0;
+			while (rs.next() && this.isWithinAccess(i, ori)) {
 				String jp_id = rs.getString("jp_id");
 				String jp_text = rs.getString("jp_text");
 				String jp_author = rs.getString("author");
@@ -216,8 +236,8 @@ public class SelectRegex {
 						ct_pub_date,
 						ct_jp_num);
 				jpOriList.add(jpOriContent);
+				i++;
 			}
-			this.countJpOriPageNum();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -226,6 +246,8 @@ public class SelectRegex {
 	
 
 	private void selectChOri() {
+		this.countChOriPageNum();
+
 		String ori = "ch";
 		try {
 			if (this.language.equals("jp")) {
@@ -243,7 +265,9 @@ public class SelectRegex {
 			}
 			
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
+
+			int i = 0;
+			while (rs.next() && this.isWithinAccess(i, ori)) {
 				String ch_id = rs.getString("ch_id");
 				String ch_text = rs.getString("ch_text");
 				String ch_author = rs.getString("author");
@@ -267,8 +291,8 @@ public class SelectRegex {
 						jt_pub_date,
 						jt_ch_num);
 				chOriList.add(chOriContent);
+				i++;
 			}
-			this.countChOriPageNum();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -297,6 +321,8 @@ public class SelectRegex {
 				pages = rs.getInt("COUNT(*)");
 			}
 			this.chOriPagesNum = this.getAllPagesNum(pages);
+			this.chOriRowNum = pages;
+			setUserAccessibleRows();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -327,10 +353,56 @@ public class SelectRegex {
 				pages = rs.getInt("COUNT(*)");
 			}
 			this.jpOriPagesNum = this.getAllPagesNum(pages);
+			this.jpOriRowNum = pages;
+			setUserAccessibleRows();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 
+	 * @param i
+	 * @param ori = "jp" or "ch"
+	 * @return
+	 */
+	private boolean isWithinAccess(int i, String ori) {
+		int oriIndex = 0;
+		int accessibleRows = 0;
+		if (ori.equals("ch")) {
+			oriIndex = this.chOriIndex;
+			accessibleRows = this.chAccessibleRows;
+		} else {
+			oriIndex = this.jpOriIndex;
+			accessibleRows = this.jpAccessibleRows;
+		}
+
+		int rows = oriIndex * this.span + i;
+
+		if (this.isLogin == false) {
+			if (rows >= SelectRegex.rowsReachableNotLogin) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			if (rows >= accessibleRows) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	}
+	
+	private void setUserAccessibleRows() {
+		//percent 10 (0.1), 0.05 for Jp, 0.05 for Ch
+		double ratio = (double) this.percent;
+		double multi = ratio / 200;
+		Double rowsJp = multi * this.jpOriRowNum;
+		Double rowsCh = multi * this.chOriRowNum;
+		this.chAccessibleRows = rowsCh.intValue();
+		this.jpAccessibleRows = rowsJp.intValue();
 	}
 
 	public Integer getJpOriPageNum() {

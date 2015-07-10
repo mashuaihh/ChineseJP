@@ -8,6 +8,7 @@ public class UserDataBean {
 	private int activated;
 	private String institute;
 	private String memo;
+	private int percent;
 	
 	public UserDataBean() {
 		
@@ -67,6 +68,14 @@ public class UserDataBean {
 	
 	public int getActivated() {
 		return this.activated;
+	}
+	
+	public void setPercent(int i) {
+		this.percent = i;
+	}
+	
+	public int getPercent() {
+		return this.percent;
 	}
 	
 }

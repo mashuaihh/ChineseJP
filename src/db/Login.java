@@ -20,12 +20,13 @@ public class Login {
 	private String user_id;
 	private int active;
 	private String role;
+	private int percent;
 	
 	public Login(String username, String password) {
 		conn = new NewConnect().getConnection();
 		this.username_enter = username;
 		this.psw_enter = password;
-		String query = "SELECT user_id, name, password, role, activated FROM users WHERE name = '" + username + "'";
+		String query = "SELECT * FROM users WHERE name = '" + username + "'";
 		
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(query);
@@ -37,6 +38,7 @@ public class Login {
 				this.psw = rs.getString("password");
 				this.active = rs.getInt("activated");
 				this.role = rs.getString("role");
+				this.percent = rs.getInt("percent");
 			}
 			conn.close();
 		} catch (SQLException e) {
@@ -61,6 +63,10 @@ public class Login {
 	
 	public String getRole() {
 		return this.role;
+	}
+	
+	public int getPercent() {
+		return this.percent;
 	}
 	
 	public static void main(String[] args) {

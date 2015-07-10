@@ -52,10 +52,11 @@ public class DownloadExcelServlet extends HttpServlet {
 		//language = "ch" or "jp"
 		HttpSession session = request.getSession();
 		Boolean status = (Boolean) session.getAttribute("login_status");
+		Integer percent = (Integer) session.getAttribute("user_percent");
 		if (status == null) 
 			status = false;
 
-		SelectRegex sr = new SelectRegex(keyword, language, status, regex);
+		SelectRegex sr = new SelectRegex(keyword, language, status, regex, percent);
 		sr.selectAllContent();
 		ArrayList<JpOriBean> jpOriList = sr.getJpOriList();
 		ArrayList<ChOriBean> chOriList = sr.getChOriList();

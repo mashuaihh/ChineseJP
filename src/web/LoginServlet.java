@@ -48,6 +48,7 @@ public class LoginServlet extends HttpServlet {
 		
 		Login login = new Login(username, psw);
 		String user_id = login.getUserid();
+		Integer percent = login.getPercent();
 		
 		HttpSession session = request.getSession();
 		
@@ -57,6 +58,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("login_status", status);
 			session.setAttribute("login_name", username);
 			session.setAttribute("user_id", user_id);
+			session.setAttribute("user_percent", percent);
 			session.setAttribute("role", login.getRole());
 			response.sendRedirect("index.jsp");
 		}
